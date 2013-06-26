@@ -13,7 +13,7 @@ Simple steps for creating your project:
   5. Open up `main.go` and fill in the details about the project (review the
      service name and tier, fill in the description and your contact details)
   6. Register each of your endpoints (again in `main.go`)
-  7. Run `go get github.com/hailcab/{{REPONAME}}` so that Go will compile
+  7. Run `go get github.com/hailocab/{{REPONAME}}` so that Go will compile
      the binary (and put it in your path)
   8. Try it out! (it should be in your path)
 
