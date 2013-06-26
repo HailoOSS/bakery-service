@@ -11,11 +11,21 @@ Simple steps for creating your project:
   4. Open up `main.go` and fill in the details about the project (review the
      service name and tier, fill in the description and your contact details)
   5. Register each of your endpoints (again in `main.go`)
-  6. Run `go get github.com/hailcab/your-repo-name` so that Go will compile
+  6. Run `go get github.com/hailcab/{{REPONAME}}` so that Go will compile
      the binary (and put it in your path)
   7. Try it out! (it should be in your path)
 
-Once you've got it working, you're ready to "deploy".
+Once you've got it working, you're ready to "deploy". Deployment consists
+of two steps -- a **build** step and then a **provisioning** step.
+
+To build:
+
+  1. Push your code to Git
+  2. Type `hubot: ci setup hailocab/{{REPONAME}}` in IRC
+
+To provision (actually run your service on some servers in an environment):
+
+
 
 
 ## More details
