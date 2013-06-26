@@ -7,13 +7,15 @@ Simple steps for creating your project:
   1. Create a folder within the `proto` folder for each endpoint that you need
   2. Add a `.proto` file within each folder, defining your `Request` and
      `Response` for each endpoint
-  3. Create a `handler` for each endpoint within the `handler` folder
-  4. Open up `main.go` and fill in the details about the project (review the
+  3. Compile the protobuf code by running `./common/script/protoc.sh` from the
+     project root
+  4. Create a `handler` for each endpoint within the `handler` folder
+  5. Open up `main.go` and fill in the details about the project (review the
      service name and tier, fill in the description and your contact details)
-  5. Register each of your endpoints (again in `main.go`)
-  6. Run `go get github.com/hailcab/{{REPONAME}}` so that Go will compile
+  6. Register each of your endpoints (again in `main.go`)
+  7. Run `go get github.com/hailcab/{{REPONAME}}` so that Go will compile
      the binary (and put it in your path)
-  7. Try it out! (it should be in your path)
+  8. Try it out! (it should be in your path)
 
 Once you've got it working, you're ready to "deploy". Deployment consists
 of two steps -- a **build** step and then a **provisioning** step.
@@ -24,7 +26,6 @@ To build:
   2. Type `hubot: ci setup hailocab/{{REPONAME}}` in IRC
 
 To provision (actually run your service on some servers in an environment):
-
 
 
 
