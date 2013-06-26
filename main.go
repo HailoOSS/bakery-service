@@ -6,12 +6,12 @@ import (
 )
 
 func main() {
-	server.Name = "com.hailocab.service.{{REPONAME}}"
-	server.Description = "Please provide a short description of what your service does. It should be about this long."
-	server.Version = 20130524110011
-	server.Source = "github.com/hailocab/{{REPONAME}}"
-	server.OwnerEmail = "youremail@hailocab.com"
-	server.OwnerMobile = "+44123412341234"
+	service.Name = "com.hailocab.service.{{REPONAME}}"
+	service.Description = "Please provide a short description of what your service does. It should be about this long."
+	service.Version = ServiceVersion
+	service.Source = "github.com/hailocab/{{REPONAME}}"
+	service.OwnerEmail = "youremail@hailocab.com"
+	service.OwnerMobile = "+44123412341234"
 
 	service.Register(&service.Endpoint{
 		Name:    "foo",
