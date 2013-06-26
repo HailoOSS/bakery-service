@@ -1,0 +1,9 @@
+package com.hailocab.service.{{REPONAME}}.foo;
+
+message Request {
+	required string bar = 1;
+}
+
+message Response {
+	required string baz = 1;
+}
