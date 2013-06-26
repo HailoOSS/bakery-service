@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	service.Name = "com.hailocab.service.{{REPONAME}}"
+	service.Name = "com.hailocab.service.{{SERVICENAME}}"
 	service.Description = "Please provide a short description of what your service does. It should be about this long."
 	service.Version = ServiceVersion
 	service.Source = "github.com/hailocab/{{REPONAME}}"
