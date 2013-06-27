@@ -10,8 +10,8 @@ func main() {
 	service.Description = "Please provide a short description of what your service does. It should be about this long."
 	service.Version = ServiceVersion
 	service.Source = "github.com/hailocab/{{REPONAME}}"
-	service.OwnerEmail = "youremail@hailocab.com"
-	service.OwnerMobile = "+44123412341234"
+	service.OwnerEmail = "jonathan@hailocab.com"
+	service.OwnerMobile = "+4407546186424"
 
 	service.Init()
 
