@@ -14,7 +14,7 @@ func Foo(req *server.Request) (proto.Message, *pe.PlatformError) {
 
 	request := &foo.Request{}
 	if err := req.Unmarshal(request); err != nil {
-		return nil, errors.InternalServerError("com.hailocab.service.{{REPONAME}}.foo", fmt.Sprintf("%v", err.Error()))
+		return nil, errors.InternalServerError("com.hailocab.service.{{SERVICENAME}}.foo", fmt.Sprintf("%v", err.Error()))
 	}
 
 	// we probably want to make use of the request parameter that we know we will be passed:
