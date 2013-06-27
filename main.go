@@ -13,6 +13,8 @@ func main() {
 	service.OwnerEmail = "youremail@hailocab.com"
 	service.OwnerMobile = "+44123412341234"
 
+	service.Init()
+
 	service.Register(&service.Endpoint{
 		Name:    "foo",
 		Mean:    10,

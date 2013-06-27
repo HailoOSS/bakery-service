@@ -2,11 +2,12 @@ package handler
 
 import (
 	"code.google.com/p/goprotobuf/proto"
+	"fmt"
 	log "github.com/cihub/seelog"
 	"github.com/hailocab/go-platform-layer/errors"
 	pe "github.com/hailocab/go-platform-layer/proto/error"
 	"github.com/hailocab/go-platform-layer/server"
-	"github.com/hailocab/{{REPONAME}}/proto/foo"
+	foo "github.com/hailocab/{{REPONAME}}/proto/foo"
 )
 
 func Foo(req *server.Request) (proto.Message, *pe.PlatformError) {
@@ -24,7 +25,7 @@ func Foo(req *server.Request) (proto.Message, *pe.PlatformError) {
 
 	// then we can make a response
 	rsp := &foo.Response{
-		Baz: proto.String("This is what we return")
+		Baz: proto.String("This is what we return"),
 	}
 
 	return rsp, nil
