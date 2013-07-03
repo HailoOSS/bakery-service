@@ -9,7 +9,7 @@ import (
 	foo "github.com/hailocab/{{REPONAME}}/proto/foo"
 )
 
-func Foo(req *server.Request) (proto.Message, *errors.Error) {
+func Foo(req *server.Request) (proto.Message, errors.Error) {
 	log.Infof("Doing foo %+v", req)
 
 	request := &foo.Request{}
