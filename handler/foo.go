@@ -5,12 +5,11 @@ import (
 	"fmt"
 	log "github.com/cihub/seelog"
 	"github.com/hailocab/go-platform-layer/errors"
-	pe "github.com/hailocab/go-platform-layer/proto/error"
 	"github.com/hailocab/go-platform-layer/server"
 	foo "github.com/hailocab/{{REPONAME}}/proto/foo"
 )
 
-func Foo(req *server.Request) (proto.Message, *pe.PlatformError) {
+func Foo(req *server.Request) (proto.Message, *errors.Error) {
 	log.Infof("Doing foo %+v", req)
 
 	request := &foo.Request{}
