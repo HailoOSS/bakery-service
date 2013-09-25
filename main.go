@@ -17,8 +17,8 @@ func main() {
 
 	service.Register(&service.Endpoint{
 		Name:    "foo",
-		Mean:    10,
-		Upper95: 20,
+		Mean:    50,
+		Upper95: 100,
 		Handler: handler.Foo,
 	})
 
