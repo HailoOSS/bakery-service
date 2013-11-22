@@ -9,12 +9,13 @@ import (
 	foo "github.com/hailocab/{{REPONAME}}/proto/foo"
 )
 
+// Foo does <what>? Remember to add Godocs to your handlers, and follow the Go convention of starting with the function name
 func Foo(req *server.Request) (proto.Message, errors.Error) {
 	log.Infof("Doing foo %+v", req)
 
 	request := &foo.Request{}
 	if err := req.Unmarshal(request); err != nil {
-		return nil, errors.InternalServerError("com.hailocab.service.{{SERVICENAME}}.foo", fmt.Sprintf("%v", err.Error()))
+		return nil, errors.BadRequest("com.hailocab.service.{{SERVICENAME}}.foo", fmt.Sprintf("%v", err.Error()))
 	}
 
 	// we probably want to make use of the request parameter that we know we will be passed:

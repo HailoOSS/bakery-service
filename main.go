@@ -20,6 +20,8 @@ func main() {
 		Mean:    50,
 		Upper95: 100,
 		Handler: handler.Foo,
+		// remember to choose an appropriate authoriser for each endpoint
+		Authoriser: service.RoleAuthoriser([]string{"ADMIN"}),
 	})
 
 	service.Run()
