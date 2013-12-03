@@ -8,7 +8,8 @@ Simple steps for creating your project:
   2. Add a `.proto` file within each folder, defining your `Request` and
      `Response` for each endpoint
   3. Compile the protobuf code by running `./common/script/protoc.sh` from the
-     project root
+     project root (note that you'll need to `git submodule init` and `git
+     submodule update` in order to pick up the common submodule)
   4. Create a `handler` for each endpoint within the `handler` folder
   5. Open up `main.go` and fill in the details about the project (review the
      service name and tier, fill in the description and your contact details)
