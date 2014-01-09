@@ -26,9 +26,7 @@ To build:
   1. Push your code to Git
   2. Type `hubot: ci setup hailocab/{{REPONAME}}` in IRC
 
-To provision (actually run your service on some servers in an environment):
-
-
+To provision (actually run your service on some servers in an environment) check https://hailo.jira.com/wiki/display/HTWO/2013/10/24/Deploying+a+service+with+hshell+or+the+dashboard
 
 ## More details
 
