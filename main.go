@@ -2,6 +2,7 @@ package main
 
 import (
 	log "github.com/cihub/seelog"
+	
 	"github.com/hailocab/{{REPONAME}}/handler"
 	service "github.com/hailocab/go-platform-layer/server"
 )
