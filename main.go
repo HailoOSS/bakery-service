@@ -1,11 +1,15 @@
 package main
 
 import (
+	log "github.com/cihub/seelog"
+	
 	"github.com/hailocab/{{REPONAME}}/handler"
 	service "github.com/hailocab/go-platform-layer/server"
 )
 
 func main() {
+	defer log.Flush()
+
 	service.Name = "com.hailocab.service.{{SERVICENAME}}"
 	service.Description = "Please provide a short description of what your service does. It should be about this long."
 	service.Version = ServiceVersion
