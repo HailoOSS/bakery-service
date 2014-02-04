@@ -15,7 +15,7 @@ func Foo(req *server.Request) (proto.Message, errors.Error) {
 
 	request := &foo.Request{}
 	if err := req.Unmarshal(request); err != nil {
-		return nil, errors.BadRequest("com.hailocab.service.{{SERVICENAME}}.foo", fmt.Sprintf("%v", err.Error()))
+		return nil, errors.BadRequest(server.Name+".foo", err.Error())
 	}
 
 	// we probably want to make use of the request parameter that we know we will be passed:
