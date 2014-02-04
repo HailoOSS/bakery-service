@@ -2,7 +2,6 @@ package handler
 
 import (
 	"code.google.com/p/goprotobuf/proto"
-	"fmt"
 	log "github.com/cihub/seelog"
 	"github.com/hailocab/go-platform-layer/errors"
 	"github.com/hailocab/go-platform-layer/server"
