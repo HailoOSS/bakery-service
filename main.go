@@ -2,7 +2,7 @@ package main
 
 import (
 	log "github.com/cihub/seelog"
-	
+
 	"github.com/hailocab/{{REPONAME}}/handler"
 	service "github.com/hailocab/go-platform-layer/server"
 )
@@ -14,8 +14,9 @@ func main() {
 	service.Description = "Please provide a short description of what your service does. It should be about this long."
 	service.Version = ServiceVersion
 	service.Source = "github.com/hailocab/{{REPONAME}}"
-	service.OwnerEmail = "h2o@hailocab.com"
+	service.OwnerEmail = "jonathan@hailocab.com"
 	service.OwnerMobile = "+4407546186424"
+	service.OwnerTeam = "h2o"
 
 	service.Init()
 
