@@ -4,6 +4,7 @@ import (
 	log "github.com/cihub/seelog"
 
 	"github.com/hailocab/{{REPONAME}}/handler"
+	fooproto "github.com/hailocab/{{REPONAME}}/proto/foo"
 	service "github.com/hailocab/go-platform-layer/server"
 )
 
@@ -21,10 +22,12 @@ func main() {
 	service.Init()
 
 	service.Register(&service.Endpoint{
-		Name:    "foo",
-		Mean:    50,
-		Upper95: 100,
-		Handler: handler.Foo,
+		Name:             "foo",
+		Mean:             50,
+		Upper95:          100,
+		Handler:          handler.Foo,
+		RequestProtocol:  new(fooproto.Request),
+		ResponseProtocol: new(fooproto.Response),
 		// remember to choose an appropriate authoriser for each endpoint
 		Authoriser: service.RoleAuthoriser([]string{"ADMIN"}),
 	})
