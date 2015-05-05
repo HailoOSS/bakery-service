@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"code.google.com/p/goprotobuf/proto"
 	log "github.com/cihub/seelog"
+	"github.com/hailocab/protobuf/proto"
 
 	foo "github.com/hailocab/{{REPONAME}}/proto/foo"
 	"github.com/hailocab/go-platform-layer/errors"
