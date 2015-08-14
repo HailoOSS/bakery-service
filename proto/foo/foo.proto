@@ -1,4 +1,4 @@
-package com.hailocab.service.{{SERVICENAME}}.foo;
+package com.hailocab.service.bakery.foo;
 
 message Request {
 	required string bar = 1;

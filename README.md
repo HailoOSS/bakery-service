@@ -14,7 +14,7 @@ Simple steps for creating your project:
   5. Open up `main.go` and fill in the details about the project (review the
      service name and tier, fill in the description and your contact details)
   6. Register each of your endpoints (again in `main.go`)
-  7. Run `go get github.com/hailocab/{{REPONAME}}` so that Go will compile
+  7. Run `go get github.com/hailocab/bakery-service` so that Go will compile
      the binary (and put it in your path)
   8. Try it out! (it should be in your path)
 
@@ -24,7 +24,7 @@ of two steps -- a **build** step and then a **provisioning** step.
 To build:
 
   1. Push your code to Git
-  2. Type `hubot: ci setup hailocab/{{REPONAME}}` in IRC
+  2. Type `hubot: ci setup hailocab/bakery-service` in IRC
 
 To provision (actually run your service on some servers in an environment) check https://hailo.jira.com/wiki/display/HTWO/2013/10/24/Deploying+a+service+with+hshell+or+the+dashboard
 

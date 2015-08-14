@@ -4,7 +4,7 @@ import (
 	log "github.com/cihub/seelog"
 	"github.com/hailocab/protobuf/proto"
 
-	foo "github.com/hailocab/{{REPONAME}}/proto/foo"
+	foo "github.com/hailocab/bakery-service/proto/foo"
 	"github.com/hailocab/go-platform-layer/errors"
 	"github.com/hailocab/go-platform-layer/server"
 )

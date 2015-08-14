@@ -3,18 +3,18 @@ package main
 import (
 	log "github.com/cihub/seelog"
 
-	"github.com/hailocab/{{REPONAME}}/handler"
-	fooproto "github.com/hailocab/{{REPONAME}}/proto/foo"
+	"github.com/hailocab/bakery-service/handler"
+	fooproto "github.com/hailocab/bakery-service/proto/foo"
 	service "github.com/hailocab/go-platform-layer/server"
 )
 
 func main() {
 	defer log.Flush()
 
-	service.Name = "com.hailocab.service.{{SERVICENAME}}"
+	service.Name = "com.hailocab.service.bakery"
 	service.Description = "Please provide a short description of what your service does. It should be about this long."
 	service.Version = ServiceVersion
-	service.Source = "github.com/hailocab/{{REPONAME}}"
+	service.Source = "github.com/hailocab/bakery-service"
 	service.OwnerEmail = "jonathan@hailocab.com"
 	service.OwnerMobile = "+4407546186424"
 	service.OwnerTeam = "h2o"
