@@ -1,6 +1,9 @@
 {
 	"ImportPath": "github.com/hailocab/bakery-service",
 	"GoVersion": "go1.5",
+	"Packages": [
+		"./..."
+	],
 	"Deps": [
 		{
 			"ImportPath": "github.com/andreas/circuitbreaker",
@@ -10,6 +13,11 @@
 		{
 			"ImportPath": "github.com/apache/thrift/lib/go/thrift",
 			"Rev": "7860ee727a91d2f7e74a48c2048f7f7fc79a5d10"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/aws",
+			"Comment": "v0.9.1rc2",
+			"Rev": "a11ddd7a070196035bc94b6c04a2a0114c06a395"
 		},
 		{
 			"ImportPath": "github.com/bitly/go-simplejson",
@@ -261,6 +269,10 @@
 			"ImportPath": "github.com/stretchr/testify/mock",
 			"Comment": "v1.0-21-gf552045",
 			"Rev": "f5520455607c0233cb6d7b056f71b22c1d265ef1"
+		},
+		{
+			"ImportPath": "github.com/vaughan0/go-ini",
+			"Rev": "a98ad7ee00ec53921f08832bc06ecf7fd600e6a1"
 		},
 		{
 			"ImportPath": "launchpad.net/tomb",
