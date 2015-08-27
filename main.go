@@ -1,10 +1,16 @@
 package main
 
 import (
-	log "github.com/cihub/seelog"
+	"time"
 
+	protoBuild "github.com/hailocab/bakery-service/proto/build"
+
+	"github.com/hailocab/bakery-service/aws"
 	"github.com/hailocab/bakery-service/handler"
+
+	log "github.com/cihub/seelog"
 	service "github.com/hailocab/go-platform-layer/server"
+	"github.com/hailocab/go-service-layer/config"
 )
 
 func main() {
@@ -20,12 +26,17 @@ func main() {
 	service.Init()
 
 	service.Register(&service.Endpoint{
-		Name:       "foo",
-		Mean:       50,
-		Upper95:    100,
-		Handler:    handler.Foo,
-		Authoriser: service.RoleAuthoriser([]string{"ADMIN", "PLATFORM"}),
+		Authoriser:       service.RoleAuthoriser([]string{"ADMIN", "PLATFORM"}),
+		Handler:          handler.Build,
+		Mean:             50,
+		Name:             "build",
+		RequestProtocol:  new(protoBuild.Request),
+		ResponseProtocol: new(protoBuild.Response),
+		Upper95:          100,
 	})
+
+	config.WaitUntilLoaded(time.Second * 2)
+	aws.Init()
 
 	service.Run()
 }
