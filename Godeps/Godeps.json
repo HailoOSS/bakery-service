@@ -260,12 +260,59 @@
 			"Rev": "007f5a6a8a9f213afe68dab553ea34fb08e01703"
 		},
 		{
+			"ImportPath": "github.com/hashicorp/go-msgpack/codec",
+			"Rev": "fa3f63826f7c23912c15263591e65d54d080b458"
+		},
+		{
+			"ImportPath": "github.com/hashicorp/go-multierror",
+			"Rev": "56912fb08d85084aa318edcf2bba735b97cf35c5"
+		},
+		{
+			"ImportPath": "github.com/hashicorp/go-version",
+			"Rev": "999359b6b7a041ce16e695d51e92145b83f01087"
+		},
+		{
 			"ImportPath": "github.com/hashicorp/golang-lru",
 			"Rev": "7f9ef20a0256f494e24126014135cf893ab71e9e"
 		},
 		{
+			"ImportPath": "github.com/hashicorp/yamux",
+			"Rev": "ae139c4ae7fe21e9d99459d2acc57967cebb6918"
+		},
+		{
 			"ImportPath": "github.com/johnny-john/banner",
 			"Rev": "6053f89e69954d6bd279444395a774b3563b69ee"
+		},
+		{
+			"ImportPath": "github.com/mitchellh/iochan",
+			"Rev": "87b45ffd0e9581375c491fef3d32130bb15c5bd7"
+		},
+		{
+			"ImportPath": "github.com/mitchellh/mapstructure",
+			"Rev": "281073eb9eb092240d33ef253c404f1cca550309"
+		},
+		{
+			"ImportPath": "github.com/mitchellh/osext",
+			"Rev": "0dd3f918b21bec95ace9dc86c7e70266cfc5c702"
+		},
+		{
+			"ImportPath": "github.com/mitchellh/packer/common/uuid",
+			"Comment": "v0.8.6-7-g6d1376d",
+			"Rev": "6d1376db948d451521ad40a87884c242ea59bd4b"
+		},
+		{
+			"ImportPath": "github.com/mitchellh/packer/packer",
+			"Comment": "v0.8.6-7-g6d1376d",
+			"Rev": "6d1376db948d451521ad40a87884c242ea59bd4b"
+		},
+		{
+			"ImportPath": "github.com/mitchellh/packer/template",
+			"Comment": "v0.8.6-7-g6d1376d",
+			"Rev": "6d1376db948d451521ad40a87884c242ea59bd4b"
+		},
+		{
+			"ImportPath": "github.com/mitchellh/reflectwalk",
+			"Rev": "eecf4c70c626c7cfbb95c90195bc34d386c74ac6"
 		},
 		{
 			"ImportPath": "github.com/mreiferson/go-httpclient",
