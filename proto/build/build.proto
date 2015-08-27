@@ -1,0 +1,9 @@
+package com.hailocab.service.bakery.build;
+
+message Request {
+  required string template = 1;
+}
+
+message Response {
+  required string id = 1;
+}
