@@ -7,12 +7,20 @@ import (
 	"path/filepath"
 	"sync"
 
+	"github.com/hailocab/bakery-service/aws"
+
 	log "github.com/cihub/seelog"
 	"github.com/mitchellh/packer/packer"
 	"github.com/mitchellh/packer/template"
 )
 
 func Build(t io.ReadCloser) {
+	credentials, err := aws.Credentials()
+	if err != nil {
+		log.Errorf("Unable to get credentials: %v", err)
+		return
+	}
+
 	config := &config{
 		PluginMinPort: 10000,
 		PluginMaxPort: 25000,
@@ -42,8 +50,9 @@ func Build(t io.ReadCloser) {
 		},
 		Template: tpl,
 		Variables: map[string]string{
-			"AWS_ACCESS_KEY_ID": "AKI123",
-			"AWS_SECRET_KEY":    "123",
+			"AWS_ACCESS_KEY_ID":  credentials.AccessKeyID,
+			"AWS_SECRET_KEY":     credentials.SecretAccessKey,
+			"AWS_SECURITY_TOKEN": credentials.SessionToken,
 		},
 	}
 

@@ -7,6 +7,7 @@ import (
 	"runtime"
 	"strings"
 
+	log "github.com/cihub/seelog"
 	"github.com/mitchellh/osext"
 	"github.com/mitchellh/packer/packer"
 	"github.com/mitchellh/packer/packer/plugin"
@@ -27,7 +28,9 @@ func (c *config) Discover() error {
 		return fmt.Errorf("Unable to find packer in the path: %v", err)
 	}
 
-	if err := c.discover(path); err != nil {
+	log.Debugf("Found packer at: %s", path)
+
+	if err := c.discover(filepath.Dir(path)); err != nil {
 		return err
 	}
 
@@ -66,10 +69,13 @@ func (c *config) discover(path string) error {
 }
 
 func (c *config) discoverSingle(glob string, m *map[string]string) error {
+	log.Infof("glob: %v", glob)
 	matches, err := filepath.Glob(glob)
 	if err != nil {
 		return err
 	}
+
+	log.Infof("Matches: %#v", matches)
 
 	if *m == nil {
 		*m = make(map[string]string)

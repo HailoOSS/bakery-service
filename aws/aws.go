@@ -9,6 +9,7 @@ import (
 	"github.com/hailocab/go-service-layer/config"
 
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/service/s3"
 	log "github.com/cihub/seelog"
 )
@@ -37,6 +38,20 @@ func Auth(accountId string) (*aws.Config, error) {
 	}
 
 	return account.AssumeRole(randString(), 3600)
+}
+
+func Credentials() (credentials.Value, error) {
+	config, err := Auth(DefaultAccount)
+	if err != nil {
+		return credentials.Value{}, fmt.Errorf("Unable to auth: %v", err)
+	}
+
+	value, err := config.Credentials.Get()
+	if err != nil {
+		return credentials.Value{}, fmt.Errorf("Unable to get credentials: %v", err)
+	}
+
+	return value, nil
 }
 
 func GetS3Object(bucket string, key string) (io.ReadCloser, error) {
