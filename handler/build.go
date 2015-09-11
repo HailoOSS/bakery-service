@@ -21,6 +21,11 @@ const (
 )
 
 func Build(req *server.Request) (proto.Message, errors.Error) {
+	var (
+		p   *packer.Packer
+		err error
+	)
+
 	request := req.Data().(*protoBuild.Request)
 
 	template := request.GetTemplate()
@@ -33,7 +38,13 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 		)
 	}
 
-	packer.Build(rc)
+	if p, err = packer.New(rc); err != nil {
+		return nil, errors.InternalServerError(BuildEndpoint,
+			fmt.Sprintf("Can't build resource: %v", err),
+		)
+	}
+
+	log.Debugf("p: %#v", p.Template.Variables)
 
 	return &protoBuild.Response{
 		Id: proto.String("lolz"),
