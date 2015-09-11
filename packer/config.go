@@ -41,25 +41,23 @@ func (c *config) Discover() error {
 		}
 	}
 
-	var globber Glob
-
-	if err := c.discoverSingle(filepath.Join(path, "packer-builder-*"), &c.Builders, globber); err != nil {
+	if err := c.discoverSingle(filepath.Join(path, "packer-builder-*"), &c.Builders, Glob); err != nil {
 		return fmt.Errorf("Couldn't discover builders: %v", err)
 	}
 
-	if err := c.discoverSingle(filepath.Join(path, "packer-post-processor-*"), &c.PostProcessors, globber); err != nil {
+	if err := c.discoverSingle(filepath.Join(path, "packer-post-processor-*"), &c.PostProcessors, Glob); err != nil {
 		return fmt.Errorf("Couldn't discover post processors: %v", err)
 	}
 
-	if err := c.discoverSingle(filepath.Join(path, "packer-provisioner-*"), &c.Provisioners, globber); err != nil {
+	if err := c.discoverSingle(filepath.Join(path, "packer-provisioner-*"), &c.Provisioners, Glob); err != nil {
 		return fmt.Errorf("Couldn't discover provisioners: %v", err)
 	}
 
 	return nil
 }
 
-func (c *config) discoverSingle(pattern string, m *map[string]string, glob Globber) error {
-	matches, err := glob.Glob(pattern)
+func (c *config) discoverSingle(pattern string, m *map[string]string, globFn Globber) error {
+	matches, err := globFn(pattern)
 	if err != nil {
 		return fmt.Errorf("Unable to glob '%s': %v", pattern, err)
 	}

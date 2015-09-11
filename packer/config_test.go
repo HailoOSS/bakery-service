@@ -12,18 +12,14 @@ func TestNewConfig(t *testing.T) {
 	}
 }
 
-type mockGlobber struct{}
-
-func (m mockGlobber) Glob(pattern string) ([]string, error) {
+func GlobMock(pattern string) ([]string, error) {
 	return []string{"/usr/local/bin/packer-builder-aws"}, nil
 }
 
 func TestDiscoverySingle(t *testing.T) {
 	config := NewConfig(1, 2)
 
-	var mock mockGlobber
-
-	if err := config.discoverSingle("/usr/local/bin/packer-builder-*", &config.Builders, mock); err != nil {
+	if err := config.discoverSingle("/usr/local/bin/packer-builder-*", &config.Builders, GlobMock); err != nil {
 		t.Fatalf("Unable to discover builds: %v", err)
 	}
 
