@@ -1,0 +1,38 @@
+package packer
+
+import (
+	"testing"
+)
+
+func TestNewConfig(t *testing.T) {
+	config := NewConfig(1, 2)
+
+	if config.PluginMinPort != 1 || config.PluginMaxPort != 2 {
+		t.Fatal("Unable to create a valid config")
+	}
+}
+
+type mockGlobber struct{}
+
+func (m mockGlobber) Glob(pattern string) ([]string, error) {
+	return []string{"/usr/local/bin/packer-builder-aws"}, nil
+}
+
+func TestDiscoverySingle(t *testing.T) {
+	config := NewConfig(1, 2)
+
+	var mock mockGlobber
+
+	if err := config.discoverSingle("/usr/local/bin/packer-builder-*", &config.Builders, mock); err != nil {
+		t.Fatalf("Unable to discover builds: %v", err)
+	}
+
+	if len(config.Builders) == 0 {
+		t.Fatal("No builders found")
+	}
+
+	_, err := config.LoadBuilder("aws")
+	if err != nil {
+		t.Fatalf("Unable to get 'aws' builder: %v", err)
+	}
+}

@@ -4,10 +4,8 @@ import (
 	"fmt"
 	"os/exec"
 	"path/filepath"
-	"runtime"
 	"strings"
 
-	log "github.com/cihub/seelog"
 	"github.com/mitchellh/osext"
 	"github.com/mitchellh/packer/packer"
 	"github.com/mitchellh/packer/packer/plugin"
@@ -22,82 +20,62 @@ type config struct {
 	PostProcessors map[string]string
 }
 
+func NewConfig(minPort uint, maxPort uint) *config {
+	return &config{
+		PluginMinPort: minPort,
+		PluginMaxPort: maxPort,
+	}
+}
+
 func (c *config) Discover() error {
 	path, err := exec.LookPath("packer")
 	if err != nil {
 		return fmt.Errorf("Unable to find packer in the path: %v", err)
 	}
 
-	log.Debugf("Found packer at: %s", path)
-
-	if err := c.discover(filepath.Dir(path)); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (c *config) discover(path string) error {
-	var err error
-
-	if !filepath.IsAbs(path) {
-		path, err = filepath.Abs(path)
+	packerDir := filepath.Dir(path)
+	if !filepath.IsAbs(packerDir) {
+		path, err = filepath.Abs(packerDir)
 		if err != nil {
-			return err
+			return fmt.Errorf("Packer path is invalid: %v", err)
 		}
 	}
 
-	err = c.discoverSingle(
-		filepath.Join(path, "packer-builder-*"), &c.Builders)
-	if err != nil {
-		return err
+	var globber Glob
+
+	if err := c.discoverSingle(filepath.Join(path, "packer-builder-*"), &c.Builders, globber); err != nil {
+		return fmt.Errorf("Couldn't discover builders: %v", err)
 	}
 
-	err = c.discoverSingle(
-		filepath.Join(path, "packer-post-processor-*"), &c.PostProcessors)
-	if err != nil {
-		return err
+	if err := c.discoverSingle(filepath.Join(path, "packer-post-processor-*"), &c.PostProcessors, globber); err != nil {
+		return fmt.Errorf("Couldn't discover post processors: %v", err)
 	}
 
-	err = c.discoverSingle(
-		filepath.Join(path, "packer-provisioner-*"), &c.Provisioners)
-	if err != nil {
-		return err
+	if err := c.discoverSingle(filepath.Join(path, "packer-provisioner-*"), &c.Provisioners, globber); err != nil {
+		return fmt.Errorf("Couldn't discover provisioners: %v", err)
 	}
 
 	return nil
 }
 
-func (c *config) discoverSingle(glob string, m *map[string]string) error {
-	log.Infof("glob: %v", glob)
-	matches, err := filepath.Glob(glob)
+func (c *config) discoverSingle(pattern string, m *map[string]string, glob Globber) error {
+	matches, err := glob.Glob(pattern)
 	if err != nil {
-		return err
+		return fmt.Errorf("Unable to glob '%s': %v", pattern, err)
 	}
-
-	log.Infof("Matches: %#v", matches)
 
 	if *m == nil {
 		*m = make(map[string]string)
 	}
 
-	prefix := filepath.Base(glob)
+	prefix := filepath.Base(pattern)
 	prefix = prefix[:strings.Index(prefix, "*")]
 	for _, match := range matches {
 		file := filepath.Base(match)
-
-		// One Windows, ignore any plugins that don't end in .exe.
-		// We could do a full PATHEXT parse, but this is probably good enough.
-		if runtime.GOOS == "windows" && strings.ToLower(filepath.Ext(file)) != ".exe" {
-			continue
-		}
-
-		// If the filename has a ".", trim up to there
 		if idx := strings.Index(file, "."); idx >= 0 {
 			file = file[:idx]
 		}
 
-		// Look for foo-bar-baz. The plugin name is "baz"
 		plugin := file[len(prefix):]
 		(*m)[plugin] = match
 	}
@@ -105,40 +83,32 @@ func (c *config) discoverSingle(glob string, m *map[string]string) error {
 	return nil
 }
 
-// This is a proper packer.BuilderFunc that can be used to load packer.Builder
-// implementations from the defined plugins.
 func (c *config) LoadBuilder(name string) (packer.Builder, error) {
 	bin, ok := c.Builders[name]
 	if !ok {
-		return nil, nil
+		return nil, fmt.Errorf("Unable to load builder: %s", name)
 	}
 
 	return c.pluginClient(bin).Builder()
 }
 
-// This is a proper implementation of packer.HookFunc that can be used
-// to load packer.Hook implementations from the defined plugins.
 func (c *config) LoadHook(name string) (packer.Hook, error) {
 	return c.pluginClient(name).Hook()
 }
 
-// This is a proper packer.PostProcessorFunc that can be used to load
-// packer.PostProcessor implementations from defined plugins.
 func (c *config) LoadPostProcessor(name string) (packer.PostProcessor, error) {
 	bin, ok := c.PostProcessors[name]
 	if !ok {
-		return nil, nil
+		return nil, fmt.Errorf("Unable to load post processor: %s", name)
 	}
 
 	return c.pluginClient(bin).PostProcessor()
 }
 
-// This is a proper packer.ProvisionerFunc that can be used to load
-// packer.Provisioner implementations from defined plugins.
 func (c *config) LoadProvisioner(name string) (packer.Provisioner, error) {
 	bin, ok := c.Provisioners[name]
 	if !ok {
-		return nil, nil
+		return nil, fmt.Errorf("Unable to load provisioner: %s", name)
 	}
 
 	return c.pluginClient(bin).Provisioner()
@@ -166,9 +136,11 @@ func (c *config) pluginClient(path string) *plugin.Client {
 	}
 
 	var config plugin.ClientConfig
+
 	config.Cmd = exec.Command(path)
 	config.Managed = true
 	config.MinPort = c.PluginMinPort
 	config.MaxPort = c.PluginMaxPort
+
 	return plugin.NewClient(&config)
 }

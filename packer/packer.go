@@ -1,149 +1,56 @@
 package packer
 
 import (
-	"bytes"
+	"fmt"
 	"io"
-	"os"
-	"path/filepath"
-	"sync"
 
-	"github.com/hailocab/bakery-service/aws"
+	// "github.com/hailocab/bakery-service/aws"
 
-	log "github.com/cihub/seelog"
-	"github.com/mitchellh/packer/packer"
+	// log "github.com/cihub/seelog"
+	// "github.com/mitchellh/packer/packer"
 	"github.com/mitchellh/packer/template"
 )
 
-func Build(t io.ReadCloser) {
-	credentials, err := aws.Credentials()
+const (
+	PluginMaxPort = 10000
+	PluginMinPort = 15000
+)
+
+type Packer struct {
+	Template *template.Template
+}
+
+func New(t io.ReadCloser) (*Packer, error) {
+	tpl, err := ReadTemplate(t)
 	if err != nil {
-		log.Errorf("Unable to get credentials: %v", err)
-		return
+		return nil, fmt.Errorf("Unable to create new packer: %v", err)
 	}
 
-	config := &config{
-		PluginMinPort: 10000,
-		PluginMaxPort: 25000,
-	}
+	return &Packer{
+		Template: tpl,
+	}, nil
+}
 
+func (p *Packer) Build() error {
+	config := NewConfig(PluginMinPort, PluginMaxPort)
 	if err := config.Discover(); err != nil {
-		log.Errorf("%v", err)
+		return fmt.Errorf("Unable to discover packer config: %v", err)
 	}
 
+	return nil
+}
+
+func ReadTemplate(t io.ReadCloser) (*template.Template, error) {
 	defer t.Close()
 
-	tplBuf := bytes.NewBuffer([]byte{})
-	tplBuf.ReadFrom(t)
-	tpl, err := template.Parse(tplBuf)
+	tpl, err := template.Parse(t)
 	if err != nil {
-		log.Errorf("%v", err)
+		return nil, fmt.Errorf("Unable to read template: %v", err)
 	}
 
-	log.Debugf("Template: %v", string(tpl.RawContents))
-
-	coreConfig := packer.CoreConfig{
-		Components: packer.ComponentFinder{
-			Builder:       config.LoadBuilder,
-			Hook:          config.LoadHook,
-			PostProcessor: config.LoadPostProcessor,
-			Provisioner:   config.LoadProvisioner,
-		},
-		Template: tpl,
-		Variables: map[string]string{
-			"AWS_ACCESS_KEY_ID":  credentials.AccessKeyID,
-			"AWS_SECRET_KEY":     credentials.SecretAccessKey,
-			"AWS_SECURITY_TOKEN": credentials.SessionToken,
-		},
+	if err := tpl.Validate(); err != nil {
+		return nil, fmt.Errorf("The template is not valid: %v", err)
 	}
 
-	core, err := packer.NewCore(&coreConfig)
-	if err != nil {
-		log.Errorf("Unable to create core: %v", err)
-	}
-
-	var builds []packer.Build
-	for _, name := range core.BuildNames() {
-		log.Debugf("Found build: %v", name)
-
-		b, err := core.Build(name)
-		if err != nil {
-			log.Errorf("Unable to create build: %v", err)
-		}
-
-		builds = append(builds, b)
-	}
-
-	for _, b := range builds {
-		log.Infof("Preparing build: %s", b.Name())
-		// b.SetDebug(cfgDebug)
-		// b.SetForce(cfgForce)
-
-		warnings, err := b.Prepare()
-		if err != nil {
-			log.Errorf("%v", err)
-		}
-		if len(warnings) > 0 {
-			for _, warning := range warnings {
-				log.Infof("Warning: %s", warning)
-			}
-		}
-	}
-
-	cacheDir := os.Getenv("PACKER_CACHE_DIR")
-	if cacheDir == "" {
-		cacheDir = "packer_cache"
-	}
-
-	cacheDir, err = filepath.Abs(cacheDir)
-	if err != nil {
-		log.Errorf("Error preparing cache directory: %s", err)
-	}
-
-	log.Infof("Setting cache directory: %s", cacheDir)
-	cache := &packer.FileCache{CacheDir: cacheDir}
-
-	artifacts := map[string][]packer.Artifact{}
-	errors := make(map[string]error)
-
-	var wg sync.WaitGroup
-	for _, b := range builds {
-		log.Infof("Starting to process: %s", b.Name())
-		wg.Add(1)
-
-		go func(b packer.Build) {
-			defer wg.Done()
-
-			name := b.Name()
-			log.Infof("Starting build of: %s", name)
-
-			runArtifacts, err := b.Run(&Ui{}, cache)
-			if err != nil {
-				log.Errorf("Build '%s' errored: %s", name, err)
-				errors[name] = err
-			} else {
-				log.Infof("Build '%s' finished.", name)
-				artifacts[name] = runArtifacts
-			}
-		}(b)
-	}
-
-	log.Infof("Waiting on builds to complete...")
-	wg.Wait()
-
-	if len(errors) > 0 {
-		log.Error("There were some problems building")
-		for n, e := range errors {
-			log.Infof("%s: %v", n, e)
-		}
-	}
-
-	if len(artifacts) > 0 {
-		log.Infof("Builds finished, there are some artifacts")
-
-		for _, ba := range artifacts {
-			for _, a := range ba {
-				log.Infof("%#v", a)
-			}
-		}
-	}
+	return tpl, nil
 }
