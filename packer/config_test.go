@@ -26,9 +26,4 @@ func TestDiscoverySingle(t *testing.T) {
 	if len(config.Builders) == 0 {
 		t.Fatal("No builders found")
 	}
-
-	_, err := config.LoadBuilder("aws")
-	if err != nil {
-		t.Fatalf("Unable to get 'aws' builder: %v", err)
-	}
 }
