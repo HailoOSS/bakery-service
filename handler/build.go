@@ -38,13 +38,25 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 		)
 	}
 
-	if p, err = packer.New(rc); err != nil {
+	p, err = packer.New(rc)
+	if err != nil {
 		return nil, errors.InternalServerError(BuildEndpoint,
 			fmt.Sprintf("Can't build resource: %v", err),
 		)
 	}
 
-	log.Debugf("p: %#v", p.Template.Variables)
+	vars := packer.ExtractVariables(p.Template.Variables, map[string]string{
+		"aws_access_key_id": "foo",
+	})
+
+	log.Debugf("%#v", vars["aws_access_key_id"].Value)
+
+	p.Build()
+
+	// if p, err = packer.New(rc); err != nil {
+	// }
+
+	// p.Build(vars)
 
 	return &protoBuild.Response{
 		Id: proto.String("lolz"),

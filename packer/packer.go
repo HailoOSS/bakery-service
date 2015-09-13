@@ -7,7 +7,7 @@ import (
 	// "github.com/hailocab/bakery-service/aws"
 
 	// log "github.com/cihub/seelog"
-	// "github.com/mitchellh/packer/packer"
+	"github.com/mitchellh/packer/packer"
 	"github.com/mitchellh/packer/template"
 )
 
@@ -37,7 +37,26 @@ func (p *Packer) Build() error {
 		return fmt.Errorf("Unable to discover packer config: %v", err)
 	}
 
+	p.BuildCoreConfig(config, map[string]*Variable{})
+
 	return nil
+}
+
+func (p *Packer) BuildCoreConfig(config *config, vars map[string]*Variable) *packer.CoreConfig {
+	return &packer.CoreConfig{
+		Components: packer.ComponentFinder{
+			Builder:       config.LoadBuilder,
+			Hook:          config.LoadHook,
+			PostProcessor: config.LoadPostProcessor,
+			Provisioner:   config.LoadProvisioner,
+		},
+		Template:  p.Template,
+		Variables: map[string]string{
+		// "AWS_ACCESS_KEY_ID":  credentials.AccessKeyID,
+		// "AWS_SECRET_KEY":     credentials.SecretAccessKey,
+		// "AWS_SECURITY_TOKEN": credentials.SessionToken,
+		},
+	}
 }
 
 func ReadTemplate(t io.ReadCloser) (*template.Template, error) {
@@ -54,3 +73,23 @@ func ReadTemplate(t io.ReadCloser) (*template.Template, error) {
 
 	return tpl, nil
 }
+
+func ExtractVariables(vars map[string]*template.Variable, values map[string]string) map[string]*Variable {
+	_vars := map[string]*Variable{}
+
+	for k, v := range vars {
+		for name, value := range values {
+			_vars[k] = &Variable{
+				Variable: v,
+			}
+
+			if name == k {
+				_vars[k].Value = value
+			}
+		}
+	}
+
+	return _vars
+}
+
+func CheckVariables(vars map[string]*Variable) (bool, error) {}
