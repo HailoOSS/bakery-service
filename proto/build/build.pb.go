@@ -11,21 +11,23 @@ It is generated from these files:
 It has these top-level messages:
 	Request
 	Response
+	Variable
 */
 package com_hailocab_service_bakery_build
 
-import proto "github.com/hailocab/protobuf/proto"
-import json "encoding/json"
+import proto "github.com/golang/protobuf/proto"
+import fmt "fmt"
 import math "math"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
-var _ = &json.SyntaxError{}
+var _ = fmt.Errorf
 var _ = math.Inf
 
 type Request struct {
-	Template         *string `protobuf:"bytes,1,req,name=template" json:"template,omitempty"`
-	XXX_unrecognized []byte  `json:"-"`
+	Template         *string     `protobuf:"bytes,1,req,name=template" json:"template,omitempty"`
+	Variables        []*Variable `protobuf:"bytes,2,rep,name=variables" json:"variables,omitempty"`
+	XXX_unrecognized []byte      `json:"-"`
 }
 
 func (m *Request) Reset()         { *m = Request{} }
@@ -37,6 +39,13 @@ func (m *Request) GetTemplate() string {
 		return *m.Template
 	}
 	return ""
+}
+
+func (m *Request) GetVariables() []*Variable {
+	if m != nil {
+		return m.Variables
+	}
+	return nil
 }
 
 type Response struct {
@@ -55,5 +64,26 @@ func (m *Response) GetId() string {
 	return ""
 }
 
-func init() {
+type Variable struct {
+	Key              *string `protobuf:"bytes,1,req,name=key" json:"key,omitempty"`
+	Value            *string `protobuf:"bytes,2,req,name=value" json:"value,omitempty"`
+	XXX_unrecognized []byte  `json:"-"`
+}
+
+func (m *Variable) Reset()         { *m = Variable{} }
+func (m *Variable) String() string { return proto.CompactTextString(m) }
+func (*Variable) ProtoMessage()    {}
+
+func (m *Variable) GetKey() string {
+	if m != nil && m.Key != nil {
+		return *m.Key
+	}
+	return ""
+}
+
+func (m *Variable) GetValue() string {
+	if m != nil && m.Value != nil {
+		return *m.Value
+	}
+	return ""
 }

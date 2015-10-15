@@ -2,8 +2,14 @@ package com.hailocab.service.bakery.build;
 
 message Request {
   required string template = 1;
+  repeated variable variables = 2;
 }
 
 message Response {
   required string id = 1;
+}
+
+message variable {
+  required string key = 1;
+  required string value = 2;
 }
