@@ -147,6 +147,17 @@ func (p *Packer) ProcessBuilds(builds []packer.Build) (map[string][]packer.Artif
 	return artifacts, nil
 }
 
+func (p *Packer) ListTemplateVariables() map[string]*Variable {
+	_vars := map[string]*Variable{}
+	for n, v := range p.Template.Variables {
+		_vars[n] = &Variable{
+			v, "",
+		}
+	}
+
+	return _vars
+}
+
 func (p *Packer) extractVariables(vars map[string]*Variable) map[string]string {
 	_vars := map[string]string{}
 	for n, v := range vars {
