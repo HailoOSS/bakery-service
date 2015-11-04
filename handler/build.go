@@ -27,6 +27,10 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 	)
 
 	request := req.Data().(*protoBuild.Request)
+	reqVars := map[string]string{}
+	for _, v := range request.GetVariables() {
+		reqVars[v.GetKey()] = v.GetValue()
+	}
 
 	template := request.GetTemplate()
 	log.Infof("Requested Template: %v", template)
@@ -45,18 +49,27 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 		)
 	}
 
+	config, err := aws.Auth(aws.DefaultAccount)
+	if err != nil {
+		return nil, errors.InternalServerError(BuildEndpoint,
+			fmt.Sprintf("Unable to get AWS configuration"),
+		)
+	}
+
+	creds, err := config.Credentials.Get()
+	if err != nil {
+		return nil, errors.InternalServerError(BuildEndpoint,
+			fmt.Sprintf("Unable to get AWS credentials"),
+		)
+	}
+
 	vars := packer.ExtractVariables(p.Template.Variables, map[string]string{
-		"aws_access_key_id": "foo",
+		"aws_access_key_id":     creds.AccessKeyID,
+		"aws_secret_access_key": creds.SecretAccessKey,
+		"aws_session_token":     creds.SessionToken,
 	})
 
-	log.Debugf("%#v", vars["aws_access_key_id"].Value)
-
-	p.Build()
-
-	// if p, err = packer.New(rc); err != nil {
-	// }
-
-	// p.Build(vars)
+	p.Build(vars)
 
 	return &protoBuild.Response{
 		Id: proto.String("lolz"),
