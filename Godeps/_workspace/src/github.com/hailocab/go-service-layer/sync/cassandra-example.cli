@@ -1,3 +1,0 @@
-create keyspace sync;
-use sync;
-create column family globalLock with comparator = TimeUUIDType;
