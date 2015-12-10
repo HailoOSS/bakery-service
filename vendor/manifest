@@ -1,0 +1,630 @@
+{
+	"version": 0,
+	"dependencies": [
+		{
+			"importpath": "github.com/andreas/circuitbreaker",
+			"repository": "https://github.com/andreas/circuitbreaker",
+			"revision": "19b29b73716d75b007c69a41db55bf820a47dda6",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/apache/thrift/lib/go/thrift",
+			"repository": "https://github.com/apache/thrift",
+			"revision": "0156aaed107d6910935918c3044348579e92765c",
+			"branch": "master",
+			"path": "/lib/go/thrift"
+		},
+		{
+			"importpath": "github.com/aws/aws-sdk-go/aws",
+			"repository": "https://github.com/aws/aws-sdk-go",
+			"revision": "999b1591218c36d5050d1ba7266eba956e65965f",
+			"branch": "master",
+			"path": "/aws"
+		},
+		{
+			"importpath": "github.com/aws/aws-sdk-go/aws/session",
+			"repository": "https://github.com/aws/aws-sdk-go",
+			"revision": "999b1591218c36d5050d1ba7266eba956e65965f",
+			"branch": "master",
+			"path": "/aws/session"
+		},
+		{
+			"importpath": "github.com/aws/aws-sdk-go/private/endpoints",
+			"repository": "https://github.com/aws/aws-sdk-go",
+			"revision": "999b1591218c36d5050d1ba7266eba956e65965f",
+			"branch": "master",
+			"path": "/private/endpoints"
+		},
+		{
+			"importpath": "github.com/aws/aws-sdk-go/private/protocol/query",
+			"repository": "https://github.com/aws/aws-sdk-go",
+			"revision": "999b1591218c36d5050d1ba7266eba956e65965f",
+			"branch": "master",
+			"path": "/private/protocol/query"
+		},
+		{
+			"importpath": "github.com/aws/aws-sdk-go/private/protocol/rest",
+			"repository": "https://github.com/aws/aws-sdk-go",
+			"revision": "999b1591218c36d5050d1ba7266eba956e65965f",
+			"branch": "master",
+			"path": "/private/protocol/rest"
+		},
+		{
+			"importpath": "github.com/aws/aws-sdk-go/private/protocol/restxml",
+			"repository": "https://github.com/aws/aws-sdk-go",
+			"revision": "999b1591218c36d5050d1ba7266eba956e65965f",
+			"branch": "master",
+			"path": "/private/protocol/restxml"
+		},
+		{
+			"importpath": "github.com/aws/aws-sdk-go/private/protocol/xml/xmlutil",
+			"repository": "https://github.com/aws/aws-sdk-go",
+			"revision": "999b1591218c36d5050d1ba7266eba956e65965f",
+			"branch": "master",
+			"path": "/private/protocol/xml/xmlutil"
+		},
+		{
+			"importpath": "github.com/aws/aws-sdk-go/private/signer/v4",
+			"repository": "https://github.com/aws/aws-sdk-go",
+			"revision": "999b1591218c36d5050d1ba7266eba956e65965f",
+			"branch": "master",
+			"path": "/private/signer/v4"
+		},
+		{
+			"importpath": "github.com/aws/aws-sdk-go/private/waiter",
+			"repository": "https://github.com/aws/aws-sdk-go",
+			"revision": "999b1591218c36d5050d1ba7266eba956e65965f",
+			"branch": "master",
+			"path": "/private/waiter"
+		},
+		{
+			"importpath": "github.com/aws/aws-sdk-go/service/s3",
+			"repository": "https://github.com/aws/aws-sdk-go",
+			"revision": "999b1591218c36d5050d1ba7266eba956e65965f",
+			"branch": "master",
+			"path": "/service/s3"
+		},
+		{
+			"importpath": "github.com/aws/aws-sdk-go/service/sts",
+			"repository": "https://github.com/aws/aws-sdk-go",
+			"revision": "999b1591218c36d5050d1ba7266eba956e65965f",
+			"branch": "master",
+			"path": "/service/sts"
+		},
+		{
+			"importpath": "github.com/bitly/go-simplejson",
+			"repository": "https://github.com/bitly/go-simplejson",
+			"revision": "aabad6e819789e569bd6aabf444c935aa9ba1e44",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/cenkalti/backoff",
+			"repository": "https://github.com/cenkalti/backoff",
+			"revision": "4dc77674aceaabba2c7e3da25d4c823edfb73f99",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/cihub/seelog",
+			"repository": "https://github.com/cihub/seelog",
+			"revision": "0f89bb749d6163878682e320cd7c491a1680de6b",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/davecgh/go-spew/spew",
+			"repository": "https://github.com/davecgh/go-spew",
+			"revision": "5215b55f46b2b919f50a1df0eaa5886afe4e3b3d",
+			"branch": "master",
+			"path": "/spew"
+		},
+		{
+			"importpath": "github.com/davegardnerisme/deephash",
+			"repository": "https://github.com/davegardnerisme/deephash",
+			"revision": "18d6b0af3dee4ea2e9fb14327c036ce8ec2e5cde",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/facebookgo/clock",
+			"repository": "https://github.com/facebookgo/clock",
+			"revision": "600d898af40aa09a7a93ecb9265d87b0504b6f03",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/facebookgo/stack",
+			"repository": "https://github.com/facebookgo/stack",
+			"revision": "d9d227395bc3d7a635388c75b2e3b3a750e11888",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/go-ini/ini",
+			"repository": "https://github.com/go-ini/ini",
+			"revision": "9f4d2712cf687b68fad24366f81eaee163079090",
+			"branch": "v1"
+		},
+		{
+			"importpath": "github.com/golang/protobuf/proto",
+			"repository": "https://github.com/golang/protobuf",
+			"revision": "68415e7123da32b07eab49c96d2c4d6158360e9b",
+			"branch": "master",
+			"path": "/proto"
+		},
+		{
+			"importpath": "github.com/golang/protobuf/proto/testdata",
+			"repository": "https://github.com/golang/protobuf",
+			"revision": "68415e7123da32b07eab49c96d2c4d6158360e9b",
+			"branch": "master",
+			"path": "/proto/testdata"
+		},
+		{
+			"importpath": "github.com/hailocab/discovery-service/proto",
+			"repository": "https://github.com/hailocab/discovery-service",
+			"revision": "9faf83783b664531c6742e757ab96c78ca6dbdb9",
+			"branch": "master",
+			"path": "/proto"
+		},
+		{
+			"importpath": "github.com/hailocab/go-distance",
+			"repository": "https://github.com/hailocab/go-distance",
+			"revision": "c2b6d5947111a4cada4f2a5f9e4838347876266f",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/hailocab/go-hostpool",
+			"repository": "https://github.com/hailocab/go-hostpool",
+			"revision": "0637eae892be221164aff5fcbccc57171aea6406",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/hailocab/go-jsonschema",
+			"repository": "https://github.com/hailocab/go-jsonschema",
+			"revision": "eec7580b22ffc7d75a4f0f31ca2d7efe754ffced",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/hailocab/go-login-service/proto",
+			"repository": "https://github.com/hailocab/go-login-service",
+			"revision": "df6d3b83632b9fc4642a16b50c7565cb7f62b188",
+			"branch": "master",
+			"path": "/proto"
+		},
+		{
+			"importpath": "github.com/hailocab/go-nsq",
+			"repository": "https://github.com/hailocab/go-nsq",
+			"revision": "a9e28843a58ec66bfde25695b7282796d8e197e8",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/hailocab/go-zookeeper/zk",
+			"repository": "https://github.com/hailocab/go-zookeeper",
+			"revision": "57b3726634c3e8a943a7edf1c4f95b880d6d7bc2",
+			"branch": "master",
+			"path": "/zk"
+		},
+		{
+			"importpath": "github.com/hailocab/gomemcache/memcache",
+			"repository": "https://github.com/hailocab/gomemcache",
+			"revision": "4537665db3cb23b50ff128acd7a6a96b174e4dbd",
+			"branch": "master",
+			"path": "/memcache"
+		},
+		{
+			"importpath": "github.com/hailocab/gossie/src/cassandra",
+			"repository": "https://github.com/hailocab/gossie",
+			"revision": "a1c2a14cc4d2ac2342def7dfbdf96bd06f815ecf",
+			"branch": "master",
+			"path": "/src/cassandra"
+		},
+		{
+			"importpath": "github.com/hailocab/gossie/src/gossie",
+			"repository": "https://github.com/hailocab/gossie",
+			"revision": "a1c2a14cc4d2ac2342def7dfbdf96bd06f815ecf",
+			"branch": "master",
+			"path": "/src/gossie"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/circuitbreaker",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "143de148ac3fa9ae3c121037b7117e6469dac784",
+			"branch": "master",
+			"path": "/circuitbreaker"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/client",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "143de148ac3fa9ae3c121037b7117e6469dac784",
+			"branch": "master",
+			"path": "/client"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/errors",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "143de148ac3fa9ae3c121037b7117e6469dac784",
+			"branch": "master",
+			"path": "/errors"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/healthcheck",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "143de148ac3fa9ae3c121037b7117e6469dac784",
+			"branch": "master",
+			"path": "/healthcheck"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/multiclient",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "143de148ac3fa9ae3c121037b7117e6469dac784",
+			"branch": "master",
+			"path": "/multiclient"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/multierror",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "143de148ac3fa9ae3c121037b7117e6469dac784",
+			"branch": "master",
+			"path": "/multierror"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/proc",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "d30b32d6b1e9ea70357b7b2de3adbfb90aaba03d",
+			"branch": "master",
+			"path": "/proc"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/proto/error",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "143de148ac3fa9ae3c121037b7117e6469dac784",
+			"branch": "master",
+			"path": "/proto/error"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/proto/failure",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "143de148ac3fa9ae3c121037b7117e6469dac784",
+			"branch": "master",
+			"path": "/proto/failure"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/proto/healthcheck",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "143de148ac3fa9ae3c121037b7117e6469dac784",
+			"branch": "master",
+			"path": "/proto/healthcheck"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/proto/jsonschema",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "143de148ac3fa9ae3c121037b7117e6469dac784",
+			"branch": "master",
+			"path": "/proto/jsonschema"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/proto/loadedconfig",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "143de148ac3fa9ae3c121037b7117e6469dac784",
+			"branch": "master",
+			"path": "/proto/loadedconfig"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/proto/stats",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "143de148ac3fa9ae3c121037b7117e6469dac784",
+			"branch": "master",
+			"path": "/proto/stats"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/proto/trace",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "143de148ac3fa9ae3c121037b7117e6469dac784",
+			"branch": "master",
+			"path": "/proto/trace"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/raven",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "143de148ac3fa9ae3c121037b7117e6469dac784",
+			"branch": "master",
+			"path": "/raven"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/server",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "143de148ac3fa9ae3c121037b7117e6469dac784",
+			"branch": "master",
+			"path": "/server"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/stats",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "143de148ac3fa9ae3c121037b7117e6469dac784",
+			"branch": "master",
+			"path": "/stats"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/util",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "143de148ac3fa9ae3c121037b7117e6469dac784",
+			"branch": "master",
+			"path": "/util"
+		},
+		{
+			"importpath": "github.com/hailocab/platform-layer/validate",
+			"repository": "https://github.com/hailocab/platform-layer",
+			"revision": "143de148ac3fa9ae3c121037b7117e6469dac784",
+			"branch": "master",
+			"path": "/validate"
+		},
+		{
+			"importpath": "github.com/hailocab/protobuf/proto",
+			"repository": "https://github.com/hailocab/protobuf",
+			"revision": "007f5a6a8a9f213afe68dab553ea34fb08e01703",
+			"branch": "master",
+			"path": "/proto"
+		},
+		{
+			"importpath": "github.com/hailocab/service-layer/auth",
+			"repository": "https://github.com/hailocab/service-layer",
+			"revision": "9acd6dcc0dbc52b2d96bd3e7fce3814fc690c79f",
+			"branch": "master",
+			"path": "/auth"
+		},
+		{
+			"importpath": "github.com/hailocab/service-layer/cassandra",
+			"repository": "https://github.com/hailocab/service-layer",
+			"revision": "9acd6dcc0dbc52b2d96bd3e7fce3814fc690c79f",
+			"branch": "master",
+			"path": "/cassandra"
+		},
+		{
+			"importpath": "github.com/hailocab/service-layer/config",
+			"repository": "https://github.com/hailocab/service-layer",
+			"revision": "9acd6dcc0dbc52b2d96bd3e7fce3814fc690c79f",
+			"branch": "master",
+			"path": "/config"
+		},
+		{
+			"importpath": "github.com/hailocab/service-layer/connhealthcheck",
+			"repository": "https://github.com/hailocab/service-layer",
+			"revision": "9acd6dcc0dbc52b2d96bd3e7fce3814fc690c79f",
+			"branch": "master",
+			"path": "/connhealthcheck"
+		},
+		{
+			"importpath": "github.com/hailocab/service-layer/dedupe",
+			"repository": "https://github.com/hailocab/service-layer",
+			"revision": "9acd6dcc0dbc52b2d96bd3e7fce3814fc690c79f",
+			"branch": "master",
+			"path": "/dedupe"
+		},
+		{
+			"importpath": "github.com/hailocab/service-layer/dns",
+			"repository": "https://github.com/hailocab/service-layer",
+			"revision": "9acd6dcc0dbc52b2d96bd3e7fce3814fc690c79f",
+			"branch": "master",
+			"path": "/dns"
+		},
+		{
+			"importpath": "github.com/hailocab/service-layer/healthcheck",
+			"repository": "https://github.com/hailocab/service-layer",
+			"revision": "9acd6dcc0dbc52b2d96bd3e7fce3814fc690c79f",
+			"branch": "master",
+			"path": "/healthcheck"
+		},
+		{
+			"importpath": "github.com/hailocab/service-layer/instrumentation",
+			"repository": "https://github.com/hailocab/service-layer",
+			"revision": "9acd6dcc0dbc52b2d96bd3e7fce3814fc690c79f",
+			"branch": "master",
+			"path": "/instrumentation"
+		},
+		{
+			"importpath": "github.com/hailocab/service-layer/memcache",
+			"repository": "https://github.com/hailocab/service-layer",
+			"revision": "9acd6dcc0dbc52b2d96bd3e7fce3814fc690c79f",
+			"branch": "master",
+			"path": "/memcache"
+		},
+		{
+			"importpath": "github.com/hailocab/service-layer/nsq",
+			"repository": "https://github.com/hailocab/service-layer",
+			"revision": "9acd6dcc0dbc52b2d96bd3e7fce3814fc690c79f",
+			"branch": "master",
+			"path": "/nsq"
+		},
+		{
+			"importpath": "github.com/hailocab/service-layer/sync",
+			"repository": "https://github.com/hailocab/service-layer",
+			"revision": "9acd6dcc0dbc52b2d96bd3e7fce3814fc690c79f",
+			"branch": "master",
+			"path": "/sync"
+		},
+		{
+			"importpath": "github.com/hailocab/service-layer/trace",
+			"repository": "https://github.com/hailocab/service-layer",
+			"revision": "9acd6dcc0dbc52b2d96bd3e7fce3814fc690c79f",
+			"branch": "master",
+			"path": "/trace"
+		},
+		{
+			"importpath": "github.com/hailocab/service-layer/zookeeper",
+			"repository": "https://github.com/hailocab/service-layer",
+			"revision": "9acd6dcc0dbc52b2d96bd3e7fce3814fc690c79f",
+			"branch": "master",
+			"path": "/zookeeper"
+		},
+		{
+			"importpath": "github.com/hashicorp/errwrap",
+			"repository": "https://github.com/hashicorp/errwrap",
+			"revision": "7554cd9344cec97297fa6649b055a8c98c2a1e55",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/hashicorp/go-multierror",
+			"repository": "https://github.com/hashicorp/go-multierror",
+			"revision": "d30f09973e19c1dfcd120b2d9c4f168e68d6b5d5",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/hashicorp/go-version",
+			"repository": "https://github.com/hashicorp/go-version",
+			"revision": "2b9865f60ce11e527bd1255ba82036d465570aa3",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/hashicorp/golang-lru",
+			"repository": "https://github.com/hashicorp/golang-lru",
+			"revision": "b361c4c189a958f7d0ad435952611c140751afe2",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/hashicorp/yamux",
+			"repository": "https://github.com/hashicorp/yamux",
+			"revision": "df949784da9ed028ee76df44652e42d37a09d7e4",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/jmespath/go-jmespath",
+			"repository": "https://github.com/jmespath/go-jmespath",
+			"revision": "c01cf91b011868172fdcd9f41838e80c9d716264",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/johnny-john/banner",
+			"repository": "https://github.com/johnny-john/banner",
+			"revision": "6053f89e69954d6bd279444395a774b3563b69ee",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/mitchellh/iochan",
+			"repository": "https://github.com/mitchellh/iochan",
+			"revision": "87b45ffd0e9581375c491fef3d32130bb15c5bd7",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/mitchellh/mapstructure",
+			"repository": "https://github.com/mitchellh/mapstructure",
+			"revision": "281073eb9eb092240d33ef253c404f1cca550309",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/mitchellh/osext",
+			"repository": "https://github.com/mitchellh/osext",
+			"revision": "5e2d6d41470f99c881826dedd8c526728b783c9c",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/mitchellh/packer/common/uuid",
+			"repository": "https://github.com/mitchellh/packer",
+			"revision": "6d883c3e3fb99bd26264d28d5dbf3a72748f7151",
+			"branch": "master",
+			"path": "/common/uuid"
+		},
+		{
+			"importpath": "github.com/mitchellh/packer/packer",
+			"repository": "https://github.com/mitchellh/packer",
+			"revision": "6d883c3e3fb99bd26264d28d5dbf3a72748f7151",
+			"branch": "master",
+			"path": "/packer"
+		},
+		{
+			"importpath": "github.com/mitchellh/packer/template",
+			"repository": "https://github.com/mitchellh/packer",
+			"revision": "6d883c3e3fb99bd26264d28d5dbf3a72748f7151",
+			"branch": "master",
+			"path": "/template"
+		},
+		{
+			"importpath": "github.com/mitchellh/reflectwalk",
+			"repository": "https://github.com/mitchellh/reflectwalk",
+			"revision": "eecf4c70c626c7cfbb95c90195bc34d386c74ac6",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/mreiferson/go-httpclient",
+			"repository": "https://github.com/mreiferson/go-httpclient",
+			"revision": "63fe23f7434723dc904c901043af07931f293c47",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/mreiferson/go-snappystream",
+			"repository": "https://github.com/mreiferson/go-snappystream",
+			"revision": "028eae7ab5c4c9e2d1cb4c4ca1e53259bbe7e504",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/nu7hatch/gouuid",
+			"repository": "https://github.com/nu7hatch/gouuid",
+			"revision": "179d4d0c4d8d407a32af483c2354df1d2c91e6c3",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/obeattie/ohmyglob",
+			"repository": "https://github.com/obeattie/ohmyglob",
+			"revision": "290764208a0d066492b1864e86faf90992407852",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/peterbourgon/g2s",
+			"repository": "https://github.com/peterbourgon/g2s",
+			"revision": "ec76db4c1ac16400ac0e17ca9c4840e1d23da5dc",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/pmezard/go-difflib/difflib",
+			"repository": "https://github.com/pmezard/go-difflib",
+			"revision": "e8554b8641db39598be7f6342874b958f12ae1d4",
+			"branch": "master",
+			"path": "/difflib"
+		},
+		{
+			"importpath": "github.com/rcrowley/go-metrics",
+			"repository": "https://github.com/rcrowley/go-metrics",
+			"revision": "7839c01b09d2b1d7068034e5fe6e423f6ac5be22",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/stathat/go",
+			"repository": "https://github.com/stathat/go",
+			"revision": "01d012b9ee2ecc107cb28b6dd32d9019ed5c1d77",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/streadway/amqp",
+			"repository": "https://github.com/streadway/amqp",
+			"revision": "b4f3ceab0337f013208d31348b578d83c0064744",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/stretchr/objx",
+			"repository": "https://github.com/stretchr/objx",
+			"revision": "1a9d0bb9f541897e62256577b352fdbc1fb4fd94",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/stretchr/testify/assert",
+			"repository": "https://github.com/stretchr/testify",
+			"revision": "e3a8ff8ce36581f87a15341206f205b1da467059",
+			"branch": "master",
+			"path": "/assert"
+		},
+		{
+			"importpath": "github.com/stretchr/testify/mock",
+			"repository": "https://github.com/stretchr/testify",
+			"revision": "e3a8ff8ce36581f87a15341206f205b1da467059",
+			"branch": "master",
+			"path": "/mock"
+		},
+		{
+			"importpath": "github.com/ugorji/go/codec",
+			"repository": "https://github.com/ugorji/go",
+			"revision": "3f41379a4bdd0906316978f4f99166fdbe960be4",
+			"branch": "master",
+			"path": "/codec"
+		},
+		{
+			"importpath": "launchpad.net/tomb",
+			"repository": "https://launchpad.net/tomb",
+			"revision": "1",
+			"branch": "master"
+		}
+	]
+}
