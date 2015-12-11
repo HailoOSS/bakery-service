@@ -10,10 +10,10 @@ import (
 
 	log "github.com/cihub/seelog"
 
+	"github.com/hailocab/gossie/src/gossie"
 	"github.com/hailocab/platform-layer/multierror"
 	"github.com/hailocab/service-layer/cassandra"
 	inst "github.com/hailocab/service-layer/instrumentation"
-	"github.com/hailocab/gossie/src/gossie"
 )
 
 const (

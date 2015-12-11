@@ -259,7 +259,6 @@ func marshalUint(value uint64, size int, typeDesc TypeDesc) ([]byte, error) {
 
 }
 
-
 func marshalTime(value time.Time, typeDesc TypeDesc) ([]byte, error) {
 	if value.IsZero() {
 		return []byte{}, nil

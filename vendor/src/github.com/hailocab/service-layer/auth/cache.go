@@ -6,9 +6,9 @@ import (
 
 	log "github.com/cihub/seelog"
 
+	"github.com/hailocab/gomemcache/memcache"
 	inst "github.com/hailocab/service-layer/instrumentation"
 	mc "github.com/hailocab/service-layer/memcache"
-	"github.com/hailocab/gomemcache/memcache"
 )
 
 const (

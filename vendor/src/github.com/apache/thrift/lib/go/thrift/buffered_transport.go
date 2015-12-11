@@ -72,4 +72,3 @@ func (p *TBufferedTransport) Flush() error {
 func (p *TBufferedTransport) RemainingBytes() (num_bytes uint64) {
 	return p.tp.RemainingBytes()
 }
-

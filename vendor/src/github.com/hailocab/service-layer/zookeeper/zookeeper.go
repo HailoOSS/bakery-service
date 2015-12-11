@@ -14,10 +14,10 @@ import (
 	"time"
 
 	log "github.com/cihub/seelog"
+	gozk "github.com/hailocab/go-zookeeper/zk"
 	"github.com/hailocab/platform-layer/util"
 	"github.com/hailocab/service-layer/config"
 	"github.com/hailocab/service-layer/dns"
-	gozk "github.com/hailocab/go-zookeeper/zk"
 )
 
 type ZookeeperClient interface {

@@ -67,13 +67,13 @@ func TestWaitForClose(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Connect returned error: %+v", err)
 	}
-	timeout := time.After(30*time.Second)
+	timeout := time.After(30 * time.Second)
 CONNECTED:
-	for{
-		select{
-		case ev := <-zk.eventChan :
+	for {
+		select {
+		case ev := <-zk.eventChan:
 			if ev.State == StateConnected {
-				break CONNECTED;
+				break CONNECTED
 			}
 		case <-timeout:
 			zk.Close()
@@ -81,9 +81,9 @@ CONNECTED:
 		}
 	}
 	zk.Close()
-	for{
-		select{
-		case _,ok := <-zk.eventChan :
+	for {
+		select {
+		case _, ok := <-zk.eventChan:
 			if !ok {
 				return
 			}

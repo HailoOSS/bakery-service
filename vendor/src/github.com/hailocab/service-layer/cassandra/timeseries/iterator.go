@@ -8,8 +8,8 @@ import (
 
 	log "github.com/cihub/seelog"
 
-	"github.com/hailocab/service-layer/cassandra"
 	"github.com/hailocab/gossie/src/gossie"
+	"github.com/hailocab/service-layer/cassandra"
 )
 
 // Item represents something fetched from timeseries

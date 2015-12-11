@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/hailocab/service-layer/cassandra"
 	"github.com/hailocab/gossie/src/gossie"
+	"github.com/hailocab/service-layer/cassandra"
 )
 
 const (

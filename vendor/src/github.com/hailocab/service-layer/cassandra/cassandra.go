@@ -8,9 +8,9 @@ import (
 	"time"
 
 	log "github.com/cihub/seelog"
+	"github.com/hailocab/gossie/src/gossie"
 	"github.com/hailocab/service-layer/config"
 	"github.com/hailocab/service-layer/dns"
-	"github.com/hailocab/gossie/src/gossie"
 )
 
 var (

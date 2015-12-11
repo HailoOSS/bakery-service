@@ -48,7 +48,7 @@ type Query interface {
 	// column names the Result will allow you to iterate over the entire row.
 	Get(key interface{}) (Result, error)
 
-	// MultiGet looks up multiple rows given the keys. 
+	// MultiGet looks up multiple rows given the keys.
 	MultiGet(keys []interface{}) (Result, error)
 }
 

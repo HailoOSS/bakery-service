@@ -4,9 +4,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/hailocab/platform-layer/multierror"
 	"github.com/hailocab/platform-layer/client"
 	"github.com/hailocab/platform-layer/errors"
+	"github.com/hailocab/platform-layer/multierror"
 )
 
 type Errors interface {

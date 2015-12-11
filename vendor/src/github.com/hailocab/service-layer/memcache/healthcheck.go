@@ -2,8 +2,8 @@ package memcache
 
 import (
 	"fmt"
-	"github.com/hailocab/service-layer/healthcheck"
 	"github.com/hailocab/gomemcache/memcache"
+	"github.com/hailocab/service-layer/healthcheck"
 )
 
 const (

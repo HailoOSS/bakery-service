@@ -13,8 +13,8 @@ import (
 
 	inst "github.com/hailocab/service-layer/instrumentation"
 
-	"github.com/hailocab/service-layer/zookeeper"
 	gozk "github.com/hailocab/go-zookeeper/zk"
+	"github.com/hailocab/service-layer/zookeeper"
 )
 
 const (

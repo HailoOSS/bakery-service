@@ -7,8 +7,8 @@ import (
 
 	log "github.com/cihub/seelog"
 
-	"github.com/hailocab/service-layer/zookeeper"
 	gozk "github.com/hailocab/go-zookeeper/zk"
+	"github.com/hailocab/service-layer/zookeeper"
 )
 
 var (

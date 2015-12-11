@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hailocab/service-layer/config"
 	"github.com/hailocab/gomemcache/memcache"
+	"github.com/hailocab/service-layer/config"
 )
 
 func TestPub(t *testing.T) {

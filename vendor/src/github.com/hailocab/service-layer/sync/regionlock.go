@@ -9,9 +9,9 @@ import (
 
 	log "github.com/cihub/seelog"
 
+	gozk "github.com/hailocab/go-zookeeper/zk"
 	inst "github.com/hailocab/service-layer/instrumentation"
 	zk "github.com/hailocab/service-layer/zookeeper"
-	gozk "github.com/hailocab/go-zookeeper/zk"
 )
 
 var (
