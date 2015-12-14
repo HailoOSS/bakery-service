@@ -66,26 +66,26 @@ func TestReadTemplateVars(t *testing.T) {
 	}
 }
 
-func TestBuild(t *testing.T) {
-	p, err := New(NewMockReadCloser(TemplateWithDefinedVars))
-	if err != nil {
-		t.Fatalf("Unable to create new Packer: %v", err)
-	}
+// func TestBuild(t *testing.T) {
+// 	p, err := New(NewMockReadCloser(TemplateWithDefinedVars))
+// 	if err != nil {
+// 		t.Fatalf("Unable to create new Packer: %v", err)
+// 	}
 
-	vars := ExtractVariables(p.Template.Variables, map[string]string{
-		"aws_access_key_id": "AKI123456",
-	})
+// 	vars := ExtractVariables(p.Template.Variables, map[string]string{
+// 		"aws_access_key_id": "AKI123456",
+// 	})
 
-	ok, err := CheckVariables(vars)
-	if !ok || err != nil {
-		t.Fatalf("Problem with variables: %v", err)
-	}
+// 	ok, err := CheckVariables(vars)
+// 	if !ok || err != nil {
+// 		t.Fatalf("Problem with variables: %v", err)
+// 	}
 
-	_, err = p.Build(vars)
-	if err != nil {
-		t.Fatalf("Unable to build: %v", err)
-	}
-}
+// 	_, err = p.Build(vars)
+// 	if err != nil {
+// 		t.Fatalf("Unable to build: %v", err)
+// 	}
+// }
 
 type MockReadCloser struct {
 	Data *bytes.Buffer
