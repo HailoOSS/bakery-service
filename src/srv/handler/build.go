@@ -16,10 +16,14 @@ import (
 )
 
 const (
-	BuildEndpoint  = "com.hailocab.infrastructure.bakery.build"
+	// BuildEndpoint name of endpoint
+	BuildEndpoint = "com.hailocab.infrastructure.bakery.build"
+
+	// TemplateBucket S3 bucket to find templates
 	TemplateBucket = "hailo-bakery"
 )
 
+// Build endpoint
 func Build(req *server.Request) (proto.Message, errors.Error) {
 	var (
 		p   *packer.Packer
