@@ -30,7 +30,7 @@ func NewConfig(minPort uint, maxPort uint) *Config {
 }
 
 // Discover finds all plugins
-func (c *config) Discover() error {
+func (c *Config) Discover() error {
 	path, err := exec.LookPath("packer")
 	if err != nil {
 		return fmt.Errorf("Unable to find packer in the path: %v", err)
@@ -59,7 +59,7 @@ func (c *config) Discover() error {
 	return nil
 }
 
-func (c *config) discoverSingle(pattern string, m *map[string]string, globFn Globber) error {
+func (c *Config) discoverSingle(pattern string, m *map[string]string, globFn Globber) error {
 	matches, err := globFn(pattern)
 	if err != nil {
 		return fmt.Errorf("Unable to glob '%s': %v", pattern, err)
@@ -84,7 +84,8 @@ func (c *config) discoverSingle(pattern string, m *map[string]string, globFn Glo
 	return nil
 }
 
-func (c *config) LoadBuilder(name string) (packer.Builder, error) {
+// LoadBuilder creates a new builder
+func (c *Config) LoadBuilder(name string) (packer.Builder, error) {
 	bin, ok := c.Builders[name]
 	if !ok {
 		return nil, fmt.Errorf("Unable to load builder: %s", name)
@@ -93,11 +94,13 @@ func (c *config) LoadBuilder(name string) (packer.Builder, error) {
 	return c.pluginClient(bin).Builder()
 }
 
-func (c *config) LoadHook(name string) (packer.Hook, error) {
+// LoadHook creates a new hook
+func (c *Config) LoadHook(name string) (packer.Hook, error) {
 	return c.pluginClient(name).Hook()
 }
 
-func (c *config) LoadPostProcessor(name string) (packer.PostProcessor, error) {
+// LoadPostProcessor creates a new post processor
+func (c *Config) LoadPostProcessor(name string) (packer.PostProcessor, error) {
 	bin, ok := c.PostProcessors[name]
 	if !ok {
 		return nil, fmt.Errorf("Unable to load post processor: %s", name)
@@ -106,7 +109,8 @@ func (c *config) LoadPostProcessor(name string) (packer.PostProcessor, error) {
 	return c.pluginClient(bin).PostProcessor()
 }
 
-func (c *config) LoadProvisioner(name string) (packer.Provisioner, error) {
+// LoadProvisioner creates a new provisioner
+func (c *Config) LoadProvisioner(name string) (packer.Provisioner, error) {
 	bin, ok := c.Provisioners[name]
 	if !ok {
 		return nil, fmt.Errorf("Unable to load provisioner: %s", name)
@@ -115,7 +119,7 @@ func (c *config) LoadProvisioner(name string) (packer.Provisioner, error) {
 	return c.pluginClient(bin).Provisioner()
 }
 
-func (c *config) pluginClient(path string) *plugin.Client {
+func (c *Config) pluginClient(path string) *plugin.Client {
 	originalPath := path
 
 	// First attempt to find the executable by consulting the PATH.

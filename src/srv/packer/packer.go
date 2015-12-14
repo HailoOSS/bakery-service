@@ -68,7 +68,7 @@ func (p *Packer) Build(variables map[string]*Variable) (map[string][]packer.Arti
 }
 
 // BuildCoreConfig compiles config
-func (p *Packer) BuildCoreConfig(config *config, vars map[string]*Variable) *packer.CoreConfig {
+func (p *Packer) BuildCoreConfig(config *Config, vars map[string]*Variable) *packer.CoreConfig {
 	return &packer.CoreConfig{
 		Components: packer.ComponentFinder{
 			Builder:       config.LoadBuilder,
