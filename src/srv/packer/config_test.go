@@ -13,7 +13,7 @@ func TestNewConfig(t *testing.T) {
 }
 
 func GlobMock(pattern string) ([]string, error) {
-	return []string{"/usr/local/bin/packer-builder-aws"}, nil
+	return []string{"/usr/local/bin/packer-builder-null"}, nil
 }
 
 func TestDiscoverySingle(t *testing.T) {

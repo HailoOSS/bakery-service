@@ -26,6 +26,8 @@ func NewConfig(minPort uint, maxPort uint) *Config {
 	return &Config{
 		PluginMinPort: minPort,
 		PluginMaxPort: maxPort,
+
+		Builders: map[string]string{},
 	}
 }
 
@@ -44,15 +46,15 @@ func (c *Config) Discover() error {
 		}
 	}
 
-	if err := c.discoverSingle(filepath.Join(path, "packer-builder-*"), &c.Builders, Glob); err != nil {
+	if err := c.discoverSingle(filepath.Join(packerDir, "packer-builder-*"), &c.Builders, Glob); err != nil {
 		return fmt.Errorf("Couldn't discover builders: %v", err)
 	}
 
-	if err := c.discoverSingle(filepath.Join(path, "packer-post-processor-*"), &c.PostProcessors, Glob); err != nil {
+	if err := c.discoverSingle(filepath.Join(packerDir, "packer-post-processor-*"), &c.PostProcessors, Glob); err != nil {
 		return fmt.Errorf("Couldn't discover post processors: %v", err)
 	}
 
-	if err := c.discoverSingle(filepath.Join(path, "packer-provisioner-*"), &c.Provisioners, Glob); err != nil {
+	if err := c.discoverSingle(filepath.Join(packerDir, "packer-provisioner-*"), &c.Provisioners, Glob); err != nil {
 		return fmt.Errorf("Couldn't discover provisioners: %v", err)
 	}
 
