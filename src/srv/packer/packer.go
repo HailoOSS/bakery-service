@@ -14,16 +14,21 @@ import (
 )
 
 const (
+	// PluginMaxPort max port for communication between plugins
 	PluginMaxPort = 10000
+
+	// PluginMinPort min port for communication between plugins
 	PluginMinPort = 15000
 )
 
+// Packer data store
 type Packer struct {
 	Template *template.Template
 
 	coreConfig *packer.CoreConfig
 }
 
+// New creates a new packer object
 func New(t io.ReadCloser) (*Packer, error) {
 	tpl, err := ReadTemplate(t)
 	if err != nil {
@@ -35,6 +40,7 @@ func New(t io.ReadCloser) (*Packer, error) {
 	}, nil
 }
 
+// Build performs the final build
 func (p *Packer) Build(variables map[string]*Variable) (map[string][]packer.Artifact, error) {
 	config := NewConfig(PluginMinPort, PluginMaxPort)
 	if err := config.Discover(); err != nil {
@@ -61,6 +67,7 @@ func (p *Packer) Build(variables map[string]*Variable) (map[string][]packer.Arti
 	return artifacts, nil
 }
 
+// BuildCoreConfig compiles config
 func (p *Packer) BuildCoreConfig(config *config, vars map[string]*Variable) *packer.CoreConfig {
 	return &packer.CoreConfig{
 		Components: packer.ComponentFinder{
@@ -74,6 +81,7 @@ func (p *Packer) BuildCoreConfig(config *config, vars map[string]*Variable) *pac
 	}
 }
 
+// ListBuilds lists available builds from the template
 func (p *Packer) ListBuilds(core *packer.Core) ([]packer.Build, error) {
 	var builds []packer.Build
 	for _, n := range core.BuildNames() {
@@ -90,6 +98,7 @@ func (p *Packer) ListBuilds(core *packer.Core) ([]packer.Build, error) {
 	return builds, nil
 }
 
+// ProcessBuilds builds individual builds
 func (p *Packer) ProcessBuilds(builds []packer.Build) (map[string][]packer.Artifact, map[string]error) {
 	artifacts := map[string][]packer.Artifact{}
 	errors := map[string]error{}
@@ -147,6 +156,7 @@ func (p *Packer) ProcessBuilds(builds []packer.Build) (map[string][]packer.Artif
 	return artifacts, nil
 }
 
+// ListTemplateVariables extracts variables from a template
 func (p *Packer) ListTemplateVariables() map[string]*Variable {
 	_vars := map[string]*Variable{}
 	for n, v := range p.Template.Variables {
@@ -167,6 +177,7 @@ func (p *Packer) extractVariables(vars map[string]*Variable) map[string]string {
 	return _vars
 }
 
+// ReadTemplate reads template from io.ReadCloser and validates it
 func ReadTemplate(t io.ReadCloser) (*template.Template, error) {
 	defer t.Close()
 
@@ -182,6 +193,7 @@ func ReadTemplate(t io.ReadCloser) (*template.Template, error) {
 	return tpl, nil
 }
 
+// ExtractVariables maps template variables with the template
 func ExtractVariables(vars map[string]*template.Variable, values map[string]string) map[string]*Variable {
 	_vars := map[string]*Variable{}
 
@@ -200,6 +212,7 @@ func ExtractVariables(vars map[string]*template.Variable, values map[string]stri
 	return _vars
 }
 
+// CheckVariables ensures variables are set
 func CheckVariables(vars map[string]*Variable) (bool, error) {
 	for n, v := range vars {
 		if len(v.Value) == 0 {

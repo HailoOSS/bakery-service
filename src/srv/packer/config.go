@@ -11,7 +11,8 @@ import (
 	"github.com/mitchellh/packer/packer/plugin"
 )
 
-type config struct {
+// Config store
+type Config struct {
 	PluginMinPort uint
 	PluginMaxPort uint
 
@@ -20,13 +21,15 @@ type config struct {
 	PostProcessors map[string]string
 }
 
-func NewConfig(minPort uint, maxPort uint) *config {
-	return &config{
+// NewConfig generates a new config
+func NewConfig(minPort uint, maxPort uint) *Config {
+	return &Config{
 		PluginMinPort: minPort,
 		PluginMaxPort: maxPort,
 	}
 }
 
+// Discover finds all plugins
 func (c *config) Discover() error {
 	path, err := exec.LookPath("packer")
 	if err != nil {
