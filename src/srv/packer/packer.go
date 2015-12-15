@@ -130,7 +130,7 @@ func (p *Packer) ProcessBuilds(builds []packer.Build) (map[string][]packer.Artif
 				log.Debugf("Warning for %q: %v", b.Name(), w)
 			}
 
-			runArtifacts, err := b.Run(&packer.MachineReadableUi{}, cache)
+			runArtifacts, err := b.Run(&UI{}, cache)
 			if err != nil {
 				log.Errorf("Build '%s' errored: %s", b.Name(), err)
 				errors[b.Name()] = err
