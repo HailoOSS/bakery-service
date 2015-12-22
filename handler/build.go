@@ -3,10 +3,10 @@ package handler
 import (
 	"fmt"
 
-	protoBuild "srv/proto/build"
+	protoBuild "github.com/hailocab/bakery-service/proto/build"
 
-	"srv/aws"
-	"srv/packer"
+	"github.com/hailocab/bakery-service/aws"
+	"github.com/hailocab/bakery-service/packer"
 
 	"github.com/hailocab/platform-layer/errors"
 	"github.com/hailocab/platform-layer/server"

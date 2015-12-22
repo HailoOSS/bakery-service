@@ -3,10 +3,10 @@ package main
 import (
 	"time"
 
-	protoBuild "srv/proto/build"
+	protoBuild "github.com/hailocab/bakery-service/proto/build"
 
-	"srv/aws"
-	"srv/handler"
+	"github.com/hailocab/bakery-service/aws"
+	"github.com/hailocab/bakery-service/handler"
 
 	log "github.com/cihub/seelog"
 	service "github.com/hailocab/platform-layer/server"
