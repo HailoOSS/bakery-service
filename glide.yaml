@@ -1,0 +1,78 @@
+package: main
+import:
+- package: github.com/aws/aws-sdk-go
+  subpackages:
+  - /...
+- package: github.com/cihub/seelog
+- package: github.com/golang/protobuf
+  subpackages:
+  - /proto
+- package: github.com/hailocab/platform-layer
+  subpackages:
+  - /errors
+- package: github.com/stretchr/testify
+  subpackages:
+  - /mock
+- package: github.com/streadway/amqp
+- package: github.com/rcrowley/go-metrics
+- package: github.com/stretchr/objx
+- package: github.com/pmezard/go-difflib
+  subpackages:
+  - /difflib
+- package: github.com/obeattie/ohmyglob
+- package: github.com/nu7hatch/gouuid
+- package: github.com/johnny-john/banner
+- package: github.com/hailocab/service-layer
+  subpackages:
+  - /trace
+- package: github.com/peterbourgon/g2s
+- package: github.com/mreiferson/go-httpclient
+- package: github.com/hailocab/gossie
+  subpackages:
+  - /src/gossie
+- package: github.com/hailocab/protobuf
+  subpackages:
+  - /proto
+- package: github.com/hailocab/gomemcache
+  subpackages:
+  - /memcache
+- package: github.com/hailocab/go-zookeeper
+  subpackages:
+  - /zk
+- package: github.com/hailocab/go-nsq
+- package: github.com/hailocab/go-login-service
+  subpackages:
+  - /proto/deletesession
+- package: github.com/hailocab/discovery-service
+  subpackages:
+  - /proto
+- package: github.com/facebookgo/stack
+- package: github.com/andreas/circuitbreaker
+- package: github.com/apache/thrift
+  subpackages:
+  - /lib/go/thrift
+- package: github.com/bitly/go-simplejson
+- package: github.com/cenkalti/backoff
+- package: github.com/davecgh/go-spew
+  subpackages:
+  - /spew
+- package: github.com/davegardnerisme/deephash
+- package: github.com/facebookgo/clock
+- package: github.com/hailocab/go-hostpool
+- package: github.com/hailocab/go-distance
+- package: github.com/hailocab/go-jsonschema
+- package: github.com/mreiferson/go-snappystream
+- package: github.com/mitchellh/osext
+- package: github.com/mitchellh/packer
+  subpackages:
+  - /packer
+- package: github.com/hashicorp/go-multierror
+- package: github.com/hashicorp/go-version
+- package: github.com/hashicorp/yamux
+- package: github.com/hashicorp/errwrap
+- package: github.com/mitchellh/iochan
+- package: github.com/mitchellh/mapstructure
+- package: github.com/mitchellh/reflectwalk
+- package: github.com/ugorji/go
+  subpackages:
+  - /codec
