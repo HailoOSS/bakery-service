@@ -3,13 +3,13 @@ package ui
 import (
 	"fmt"
 
-	"github.com/cihub/seelog"
-	"github.com/packer/packer"
+	log "github.com/cihub/seelog"
+	"github.com/mitchellh/packer/packer"
 )
 
 // Caller foo
 type Caller interface {
-	Call(msg string)
+	Call(msg *Message)
 }
 
 // Callers foo
@@ -98,7 +98,7 @@ func (ui *UI) Error(message string) {
 
 // Machine func
 func (ui *UI) Machine(t string, args ...string) {
-	ui.call(callerTypeMachine, fmt.Printf("%s: %#v", t, args))
+	ui.call(callerTypeMachine, fmt.Sprintf("%s: %#v", t, args))
 }
 
 func (ui *UI) call(ct callerType, message string) {

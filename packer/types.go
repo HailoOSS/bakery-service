@@ -1,7 +1,6 @@
 package packer
 
 import (
-	"fmt"
 	"path/filepath"
 
 	"github.com/mitchellh/packer/template"

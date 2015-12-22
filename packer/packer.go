@@ -7,6 +7,8 @@ import (
 	"os"
 	"sync"
 
+	"github.com/hailocab/bakery-service/packer/ui"
+
 	log "github.com/cihub/seelog"
 
 	"github.com/mitchellh/packer/packer"
@@ -130,7 +132,7 @@ func (p *Packer) ProcessBuilds(builds []packer.Build) (map[string][]packer.Artif
 				log.Debugf("Warning for %q: %v", b.Name(), w)
 			}
 
-			runArtifacts, err := b.Run(&UI{}, cache)
+			runArtifacts, err := b.Run(ui.New(), cache)
 			if err != nil {
 				log.Errorf("Build '%s' errored: %s", b.Name(), err)
 				errors[b.Name()] = err
