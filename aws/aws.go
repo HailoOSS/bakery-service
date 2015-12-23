@@ -16,10 +16,13 @@ import (
 )
 
 var (
-	DefaultAccount string = "864806739507"
-	accounts       []Account
+	// DefaultAccount ID of default account to operate on
+	DefaultAccount = "864806739507"
+
+	accounts []Account
 )
 
+// Init triggers a config load
 func Init() {
 	var err error
 
@@ -29,10 +32,11 @@ func Init() {
 	}
 }
 
-func Auth(accountId string) (*aws.Config, error) {
+// Auth assumes a role specified
+func Auth(accountID string) (*aws.Config, error) {
 	var account Account
 	for _, a := range accounts {
-		if a.ID == accountId {
+		if a.ID == accountID {
 			account = a
 			break
 		}
@@ -41,6 +45,7 @@ func Auth(accountId string) (*aws.Config, error) {
 	return account.AssumeRole(randString(), 3600)
 }
 
+// Credentials returns a credentials struct
 func Credentials() (credentials.Value, error) {
 	config, err := Auth(DefaultAccount)
 	if err != nil {
@@ -55,6 +60,7 @@ func Credentials() (credentials.Value, error) {
 	return value, nil
 }
 
+// GetS3Object returns an object from s3
 func GetS3Object(bucket string, key string) (io.ReadCloser, error) {
 	config, err := Auth(DefaultAccount)
 	if err != nil {
