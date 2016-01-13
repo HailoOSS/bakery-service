@@ -3,6 +3,8 @@ package ui
 import (
 	"bufio"
 	"bytes"
+	"fmt"
+	"time"
 
 	"github.com/hailocab/bakery-service/aws"
 	"github.com/hailocab/bakery-service/packer/util"
@@ -36,5 +38,5 @@ func NewS3Caller(bucket string, path string) *S3Caller {
 
 // Call does something with the message
 func (sc *S3Caller) Call(msg *Message) {
-	// sc.writer.WriteString()
+	sc.writer.WriteString(fmt.Sprintf("%s - %s: %s", time.Now(), msg.Type.String(), msg.Message))
 }
