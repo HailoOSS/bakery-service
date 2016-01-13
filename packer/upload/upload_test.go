@@ -1,46 +1,31 @@
 package upload
 
 import (
-	"bytes"
-	"io"
+	"bufio"
+	"fmt"
 	"testing"
 )
 
-func TestFlushWriterCalled(t *testing.T) {
-	wasCalled := false
+func TestBufferedWriter(t *testing.T) {
+	timesCalled := 0
 
-	fw := NewFlushWriter(1, func(rs io.ReadSeeker) error {
-		wasCalled = true
-		return nil
-	})
+	w := &BufferedWriter{
+		WriteFunc: func(p []byte) error {
+			timesCalled++
+			if len(p) > 10 {
+				t.Fatal("Too much written to the writer")
+			}
 
-	fw.Write([]byte{'1'})
-
-	if !wasCalled {
-		t.Fatalf("Flush Writer wasn't called")
-	}
-}
-
-func TestFlushWriterParts(t *testing.T) {
-	fw := NewFlushWriter(5, func(rs io.ReadSeeker) error {
-		var buf bytes.Buffer
-		io.Copy(&buf, rs)
-
-		if buf.String() != "123456" {
-			t.Fatalf("Wrong output back")
-		}
-		return nil
-	})
-
-	fw.Write([]byte{'1', '2', '3', '4'})
-
-	if fw.PartsSent != 0 {
-		t.Fatalf("Parts sent should be 0")
+			return nil
+		},
 	}
 
-	fw.Write([]byte{'5', '6'})
+	b := bufio.NewWriterSize(w, 10)
+	fmt.Fprint(b, "1234567890")
 
-	if fw.PartsSent != 1 {
-		t.Fatalf("Parts sent should be 0")
+	b.Flush()
+
+	if timesCalled == 0 || timesCalled > 1 {
+		t.Fatal("Callback problems")
 	}
 }
