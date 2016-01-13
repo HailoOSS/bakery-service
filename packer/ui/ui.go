@@ -2,6 +2,7 @@ package ui
 
 import (
 	"fmt"
+	"time"
 
 	log "github.com/cihub/seelog"
 	"github.com/mitchellh/packer/packer"
@@ -54,6 +55,7 @@ var (
 type Message struct {
 	Type    callerType
 	Message string
+	Date    time.Time
 }
 
 // UI struct
