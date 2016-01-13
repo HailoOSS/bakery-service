@@ -81,6 +81,30 @@ func GetS3Object(bucket string, key string) (io.ReadCloser, error) {
 	return resp.Body, nil
 }
 
+// UploadPart takes a slice of data and appends it to a file
+func UploadPart(bucket string, path string, part int64, body io.ReadSeeker) error {
+	config, err := Auth(DefaultAccount)
+	if err != nil {
+		return fmt.Errorf("Unable to auth: %v", err)
+	}
+
+	svc := s3.New(session.New(), config)
+
+	_, err = svc.UploadPart(&s3.UploadPartInput{
+		Bucket:     aws.String(bucket),
+		Key:        aws.String(path),
+		PartNumber: aws.Int64(part),
+		Body:       body,
+		UploadId:   aws.String("bakery"),
+	})
+
+	if err != nil {
+		return fmt.Errorf("Unable to save part %d for %q", part, path)
+	}
+
+	return nil
+}
+
 func loadAccountInfo() ([]Account, error) {
 	accountConfig := config.AtPath(
 		"hailo",
