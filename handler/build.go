@@ -73,7 +73,7 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 		"aws_session_token":     creds.SessionToken,
 	})
 
-	p.Build(vars)
+	go p.Build(vars)
 
 	return &protoBuild.Response{
 		Id: proto.String("lolz"),
