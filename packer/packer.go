@@ -134,6 +134,7 @@ func (p *Packer) ProcessBuilds(builds []packer.Build) (map[string][]packer.Artif
 
 			runArtifacts, err := b.Run(ui.New(
 				ui.AddCaller("echo", &ui.EchoCaller{}),
+				ui.AddCaller("s3", ui.NewS3Caller()),
 			), cache)
 
 			if err != nil {
