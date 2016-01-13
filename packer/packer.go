@@ -28,10 +28,13 @@ type Packer struct {
 	Template *template.Template
 
 	coreConfig *packer.CoreConfig
+
+	bucket string
+	path   string
 }
 
 // New creates a new packer object
-func New(t io.ReadCloser) (*Packer, error) {
+func New(t io.ReadCloser, bucket string, path string) (*Packer, error) {
 	tpl, err := ReadTemplate(t)
 	if err != nil {
 		return nil, fmt.Errorf("Unable to create new packer: %v", err)
@@ -39,6 +42,8 @@ func New(t io.ReadCloser) (*Packer, error) {
 
 	return &Packer{
 		Template: tpl,
+		bucket:   bucket,
+		path:     path,
 	}, nil
 }
 
@@ -134,7 +139,7 @@ func (p *Packer) ProcessBuilds(builds []packer.Build) (map[string][]packer.Artif
 
 			runArtifacts, err := b.Run(ui.New(
 				ui.AddCaller("echo", &ui.EchoCaller{}),
-				ui.AddCaller("s3", ui.NewS3Caller()),
+				ui.AddCaller("s3", ui.NewS3Caller(p.bucket, p.path)),
 			), cache)
 
 			if err != nil {

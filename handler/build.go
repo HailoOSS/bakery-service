@@ -19,8 +19,14 @@ const (
 	// BuildEndpoint name of endpoint
 	BuildEndpoint = "com.hailocab.infrastructure.bakery.build"
 
-	// TemplateBucket S3 bucket to find templates
-	TemplateBucket = "hailo-bakery"
+	// BucketName S3 bucket to find templates
+	BucketName = "hailo-bakery"
+
+	// BucketLogPath path to store logs
+	BucketLogPath = "logs"
+
+	// BucketTemplatePath path where templates are stored
+	BucketTemplatePath = "templates"
 )
 
 // Build endpoint
@@ -39,14 +45,14 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 	template := request.GetTemplate()
 	log.Infof("Requested Template: %v", template)
 
-	rc, err := aws.GetS3Object(TemplateBucket, template)
+	rc, err := aws.GetS3Object(BucketName, fmt.Sprintf("%s/%s.json", BucketTemplatePath, template))
 	if err != nil {
 		return nil, errors.BadRequest(BuildEndpoint,
 			fmt.Sprintf("Unable to get object: %v", err),
 		)
 	}
 
-	p, err = packer.New(rc)
+	p, err = packer.New(rc, BucketName, BucketLogPath)
 	if err != nil {
 		return nil, errors.InternalServerError(BuildEndpoint,
 			fmt.Sprintf("Can't build resource: %v", err),
