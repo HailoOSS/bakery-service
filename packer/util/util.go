@@ -1,4 +1,4 @@
-package upload
+package util
 
 // WriteFunc is a callback type for when a buffer flushes
 type WriteFunc func(p []byte) error

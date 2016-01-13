@@ -5,7 +5,7 @@ import (
 	"bytes"
 
 	"github.com/hailocab/bakery-service/aws"
-	"github.com/hailocab/bakery-service/packer/upload"
+	"github.com/hailocab/bakery-service/packer/util"
 )
 
 const (
@@ -23,7 +23,7 @@ type S3Caller struct {
 
 // NewS3Caller foo
 func NewS3Caller(bucket string, path string) *S3Caller {
-	w := upload.CallbackWriter{}
+	w := util.CallbackWriter{}
 
 	w.WriteFunc = func(p []byte) error {
 		return aws.UploadPart(bucket, path, w.WriteCount, bytes.NewReader(p))
