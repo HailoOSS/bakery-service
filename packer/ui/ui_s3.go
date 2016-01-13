@@ -2,7 +2,9 @@ package ui
 
 import (
 	"bufio"
+	"bytes"
 
+	"github.com/hailocab/bakery-service/aws"
 	"github.com/hailocab/bakery-service/packer/upload"
 )
 
@@ -15,12 +17,16 @@ const (
 // S3Caller a dummy caller
 type S3Caller struct {
 	writer *bufio.Writer
+	bucket string
+	path   string
 }
 
 // NewS3Caller foo
 func NewS3Caller(bucket string, path string) *S3Caller {
-	w := upload.CallbackWriter{
-		WriteFunc: S3PartWrite,
+	w := upload.CallbackWriter{}
+
+	w.WriteFunc = func(p []byte) error {
+		return aws.UploadPart(bucket, path, w.WriteCount, bytes.NewReader(p))
 	}
 
 	return &S3Caller{
@@ -31,10 +37,4 @@ func NewS3Caller(bucket string, path string) *S3Caller {
 // Call does something with the message
 func (sc *S3Caller) Call(msg *Message) {
 	// sc.writer.WriteString()
-}
-
-// S3PartWrite writes parts to S3
-func S3PartWrite(p []byte) error {
-	// TODO: call AWS
-	return nil
 }
