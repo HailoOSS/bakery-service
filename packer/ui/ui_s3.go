@@ -3,7 +3,7 @@ package ui
 import (
 	"bufio"
 
-	"packer/upload"
+	"github.com/hailocab/bakery-service/packer/upload"
 )
 
 const (
@@ -30,7 +30,7 @@ func NewS3Caller(bucket string, path string) *S3Caller {
 
 // Call does something with the message
 func (sc *S3Caller) Call(msg *Message) {
-	sc.writer.WriteString()
+	// sc.writer.WriteString()
 }
 
 // S3PartWrite writes parts to S3
