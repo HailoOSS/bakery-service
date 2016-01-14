@@ -16,11 +16,17 @@ const (
 	BytesAllowedBeforeFlush = 1024
 )
 
+var (
+	// FlushTimeout is the amount time the buffer will flush
+	FlushTimeout = time.Second * 30
+)
+
 // S3Caller a dummy caller
 type S3Caller struct {
-	writer *bufio.Writer
-	bucket string
-	path   string
+	writer        *bufio.Writer
+	bucket        string
+	path          string
+	activeTimeout bool
 }
 
 // NewS3Caller foo
@@ -39,4 +45,22 @@ func NewS3Caller(bucket string, path string) *S3Caller {
 // Call does something with the message
 func (sc *S3Caller) Call(msg *Message) {
 	sc.writer.WriteString(fmt.Sprintf("%s - %s: %s", time.Now(), msg.Type.String(), msg.Message))
+
+	// Ensure three's a timeout after a msg
+	go sc.timeout()
+}
+
+func (sc *S3Caller) timeout() {
+	if sc.activeTimeout {
+		return
+	}
+
+	sc.activeTimeout = true
+
+	select {
+	case <-time.After(FlushTimeout):
+		// Flush buffer and force a write
+		sc.writer.Flush()
+		sc.activeTimeout = false
+	}
 }
