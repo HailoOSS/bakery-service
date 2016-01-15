@@ -9,7 +9,8 @@ install:
 before_script:
   - curl -LO https://releases.hashicorp.com/packer/0.8.6/packer_0.8.6_linux_amd64.zip
   - unzip -uv -d /usr/bin packer_0.8.6_linux_amd64.zip
-  - packer -v
+  - echo $PATH
+  - /usr/bin/packer -v
 
 script:
   - go test -v $(go list ./... | grep -v /vendor/)
