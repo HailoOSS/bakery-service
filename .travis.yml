@@ -7,11 +7,11 @@ install:
   - echo ""
 
 before_script:
-  - curl -LO https://releases.hashicorp.com/packer/0.8.6/packer_0.8.6_linux_amd64.zip
-  - unzip -uv -d /usr/bin packer_0.8.6_linux_amd64.zip
-  - echo $PATH
-  - /usr/bin/packer -v
-
+  - mkdir -p /tmp
+  - pushd /tmp
+  - curl -LO https://dl.bintray.com/mitchellh/packer/packer_0.8.6_linux_amd64.zip
+  - unzip packer_0.8.6_linux_amd64.zip
+  - export PATH=$PATH:/tmp
 script:
   - go test -v $(go list ./... | grep -v /vendor/)
   - go build -o bakery-service
