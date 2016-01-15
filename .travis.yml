@@ -12,6 +12,7 @@ before_script:
   - curl -LO https://dl.bintray.com/mitchellh/packer/packer_0.8.6_linux_amd64.zip
   - unzip packer_0.8.6_linux_amd64.zip
   - export PATH=$PATH:/tmp
+  - popd
 script:
   - go test -v $(go list ./... | grep -v /vendor/)
   - go build -o bakery-service
