@@ -5,8 +5,7 @@ go:
 
 before_install:
   - curl -LO https://releases.hashicorp.com/packer/0.8.6/packer_0.8.6_linux_amd64.zip
-  - unzip -uv packer_0.8.6_linux_amd64.zip
-  - export PATH="$PWD/packer_0.8.6_linux_amd64:$PATH"
+  - unzip -uv -d /usr/bin packer_0.8.6_linux_amd64.zip
 
 install:
   - echo ""
