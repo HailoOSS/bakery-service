@@ -6,4 +6,5 @@ go:
 install:
 
 script:
-  go build -o bakery-service
+  - go test -v $(go list ./... | grep -v /vendor/)
+  - go build -o bakery-service
