@@ -1,0 +1,9 @@
+language: go
+
+go:
+  - 1.5
+
+install:
+
+script:
+  go build -o bakery-service
