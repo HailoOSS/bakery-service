@@ -3,6 +3,8 @@ package packer
 import (
 	"bytes"
 	"testing"
+
+	"github.com/hailocab/bakery-service/packer/ui"
 )
 
 var (
@@ -55,7 +57,11 @@ func TestReadTemplateVars(t *testing.T) {
 }
 
 func TestBuild(t *testing.T) {
-	p, err := New(NewMockReadCloser(TemplateWithDefinedVars))
+	ui := ui.New(
+		ui.AddCaller("echo", &ui.EchoCaller{}),
+	)
+
+	p, err := New(NewMockReadCloser(TemplateWithDefinedVars), ui)
 	if err != nil {
 		t.Fatalf("Unable to create new Packer: %v", err)
 	}

@@ -6,10 +6,10 @@ import (
 	"testing"
 )
 
-func TestBufferedWriter(t *testing.T) {
+func TestCallbackWriter(t *testing.T) {
 	timesCalled := 0
 
-	w := &BufferedWriter{
+	w := &CallbackWriter{
 		WriteFunc: func(p []byte) error {
 			timesCalled++
 			if len(p) > 10 {

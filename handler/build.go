@@ -7,6 +7,7 @@ import (
 
 	"github.com/hailocab/bakery-service/aws"
 	"github.com/hailocab/bakery-service/packer"
+	"github.com/hailocab/bakery-service/packer/ui"
 
 	"github.com/hailocab/platform-layer/errors"
 	"github.com/hailocab/platform-layer/server"
@@ -52,7 +53,12 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 		)
 	}
 
-	p, err = packer.New(rc, BucketName, BucketLogPath)
+	ui := ui.New(
+		ui.AddCaller("echo", &ui.EchoCaller{}),
+		ui.AddCaller("s3", ui.NewS3Caller(BucketName, BucketLogPath)),
+	)
+
+	p, err = packer.New(rc, ui)
 	if err != nil {
 		return nil, errors.InternalServerError(BuildEndpoint,
 			fmt.Sprintf("Can't build resource: %v", err),

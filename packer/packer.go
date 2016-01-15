@@ -7,8 +7,6 @@ import (
 	"os"
 	"sync"
 
-	"github.com/hailocab/bakery-service/packer/ui"
-
 	log "github.com/cihub/seelog"
 
 	"github.com/mitchellh/packer/packer"
@@ -28,13 +26,11 @@ type Packer struct {
 	Template *template.Template
 
 	coreConfig *packer.CoreConfig
-
-	bucket string
-	path   string
+	ui         packer.Ui
 }
 
 // New creates a new packer object
-func New(t io.ReadCloser, bucket string, path string) (*Packer, error) {
+func New(t io.ReadCloser, ui packer.Ui) (*Packer, error) {
 	tpl, err := ReadTemplate(t)
 	if err != nil {
 		return nil, fmt.Errorf("Unable to create new packer: %v", err)
@@ -42,8 +38,7 @@ func New(t io.ReadCloser, bucket string, path string) (*Packer, error) {
 
 	return &Packer{
 		Template: tpl,
-		bucket:   bucket,
-		path:     path,
+		ui:       ui,
 	}, nil
 }
 
@@ -137,10 +132,7 @@ func (p *Packer) ProcessBuilds(builds []packer.Build) (map[string][]packer.Artif
 				log.Debugf("Warning for %q: %v", b.Name(), w)
 			}
 
-			runArtifacts, err := b.Run(ui.New(
-				ui.AddCaller("echo", &ui.EchoCaller{}),
-				ui.AddCaller("s3", ui.NewS3Caller(p.bucket, p.path)),
-			), cache)
+			runArtifacts, err := b.Run(p.ui, cache)
 
 			if err != nil {
 				log.Errorf("Build '%s' errored: %s", b.Name(), err)
