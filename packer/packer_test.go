@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/hailocab/bakery-service/packer/ui"
+	// "github.com/hailocab/bakery-service/packer/ui"
 )
 
 var (
