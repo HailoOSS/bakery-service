@@ -31,7 +31,9 @@ type S3Caller struct {
 
 // NewS3Caller foo
 func NewS3Caller(bucket string, path string) *S3Caller {
-	w := util.CallbackWriter{}
+	w := util.CallbackWriter{
+		WriteCount: 1,
+	}
 
 	w.WriteFunc = func(p []byte) error {
 		return aws.UploadPart(bucket, path, w.WriteCount, bytes.NewReader(p))
