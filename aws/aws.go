@@ -91,7 +91,7 @@ func UploadPart(bucket string, path string, part int64, body io.ReadSeeker) erro
 	log.Debugf("Trying to save part %d to: '%s/%s'", part, bucket, path)
 	svc := s3.New(session.New(), config)
 
-	resp, err = svc.UploadPart(&s3.UploadPartInput{
+	resp, err := svc.UploadPart(&s3.UploadPartInput{
 		Bucket:     aws.String(bucket),
 		Key:        aws.String(path),
 		PartNumber: aws.Int64(part),
