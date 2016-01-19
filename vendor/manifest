@@ -615,6 +615,12 @@
 			"path": "/codec"
 		},
 		{
+			"importpath": "gopkg.in/olivere/elastic.v2",
+			"repository": "https://gopkg.in/olivere/elastic.v2",
+			"revision": "a094e9ef25446294f7f79c48b39f0d004849f696",
+			"branch": "master"
+		},
+		{
 			"importpath": "launchpad.net/tomb",
 			"repository": "https://launchpad.net/tomb",
 			"revision": "1",
