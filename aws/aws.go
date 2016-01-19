@@ -88,9 +88,10 @@ func UploadPart(bucket string, path string, part int64, body io.ReadSeeker) erro
 		return fmt.Errorf("Unable to auth: %v", err)
 	}
 
+	log.Debugf("Trying to save part %d to: '%s/%s'", part, bucket, path)
 	svc := s3.New(session.New(), config)
 
-	_, err = svc.UploadPart(&s3.UploadPartInput{
+	resp, err = svc.UploadPart(&s3.UploadPartInput{
 		Bucket:     aws.String(bucket),
 		Key:        aws.String(path),
 		PartNumber: aws.Int64(part),
@@ -101,6 +102,8 @@ func UploadPart(bucket string, path string, part int64, body io.ReadSeeker) erro
 	if err != nil {
 		return fmt.Errorf("Unable to save part %d for %q", part, path)
 	}
+
+	log.Debugf("UploadPart resp: %v", resp)
 
 	return nil
 }
