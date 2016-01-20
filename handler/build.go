@@ -6,6 +6,7 @@ import (
 	protoBuild "github.com/hailocab/bakery-service/proto/build"
 
 	"github.com/hailocab/bakery-service/aws"
+	"github.com/hailocab/bakery-service/elastic"
 	"github.com/hailocab/bakery-service/packer"
 	"github.com/hailocab/bakery-service/packer/ui"
 
@@ -53,9 +54,16 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 		)
 	}
 
+	e, err := elastic.NewWithDefaults()
+	if err != nil {
+		return nil, errors.InternalServerError(BuildEndpoint,
+			fmt.Sprintf("Unable to create new elastic: %v", err),
+		)
+	}
+
 	ui := ui.New(
 		ui.AddCaller("echo", &ui.EchoCaller{}),
-		ui.AddCaller("s3", ui.NewS3Caller(BucketName, BucketLogPath)),
+		ui.AddCaller("elastic", ui.NewElasticCaller(e)),
 	)
 
 	p, err = packer.New(rc, ui)
