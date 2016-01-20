@@ -59,8 +59,8 @@ func (e *Elastic) CreateIndex(name string) (bool, error) {
 		return false, fmt.Errorf("Unable to create index: %v", err)
 	}
 
-	// index doesn't exist, return false
-	if !ok {
+	// index exists, return false
+	if ok {
 		return false, nil
 	}
 
