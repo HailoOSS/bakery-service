@@ -30,7 +30,12 @@ func NewWithDefaults() (*Elastic, error) {
 		return nil, fmt.Errorf("No defaults to use")
 	}
 
-	client, err := elastic.NewClient(elastic.SetURL(fmt.Sprintf("https://%s", Config.Host)))
+	log.Debugf("Config: %#v", Config)
+
+	client, err := elastic.NewClient(elastic.SetURL(fmt.Sprintf("https://%s:443", Config.Host)))
+	if err != nil {
+		return nil, err
+	}
 
 	e := &Elastic{
 		Host:  Config.Host,
