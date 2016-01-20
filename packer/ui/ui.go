@@ -53,9 +53,10 @@ var (
 
 // Message information
 type Message struct {
-	Type    callerType
-	Message string
 	Date    time.Time
+	ID      string
+	Message string
+	Type    callerType
 }
 
 // UI struct

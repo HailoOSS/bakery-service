@@ -15,6 +15,7 @@ import (
 
 	log "github.com/cihub/seelog"
 	"github.com/hailocab/protobuf/proto"
+	"github.com/nu7hatch/gouuid"
 )
 
 const (
@@ -54,6 +55,13 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 		)
 	}
 
+	id, err := uuid.NewV4()
+	if err != nil {
+		return nil, errors.InternalServerError(BuildEndpoint,
+			fmt.Sprintf("Unable to create ID: %v", err),
+		)
+	}
+
 	e, err := elastic.NewWithDefaults()
 	if err != nil {
 		return nil, errors.InternalServerError(BuildEndpoint,
@@ -63,7 +71,7 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 
 	ui := ui.New(
 		ui.AddCaller("echo", &ui.EchoCaller{}),
-		ui.AddCaller("elastic", ui.NewElasticCaller(e)),
+		ui.AddCaller("elastic", ui.NewElasticCaller(id.String(), e)),
 	)
 
 	p, err = packer.New(rc, ui)
@@ -96,6 +104,6 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 	go p.Build(vars)
 
 	return &protoBuild.Response{
-		Id: proto.String("lolz"),
+		Id: proto.String(id.String()),
 	}, nil
 }
