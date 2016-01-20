@@ -6,6 +6,7 @@ import (
 	protoBuild "github.com/hailocab/bakery-service/proto/build"
 
 	"github.com/hailocab/bakery-service/aws"
+	"github.com/hailocab/bakery-service/elastic"
 	"github.com/hailocab/bakery-service/handler"
 
 	log "github.com/cihub/seelog"
@@ -36,7 +37,9 @@ func main() {
 	})
 
 	config.WaitUntilLoaded(time.Second * 2)
+
 	aws.Init()
+	elastic.Init()
 
 	service.Run()
 }
