@@ -32,7 +32,7 @@ func NewWithDefaults() (*Elastic, error) {
 
 	log.Debugf("Config: %#v", Config)
 
-	client, err := elastic.NewClient(elastic.SetURL(fmt.Sprintf("https://%s:443", Config.Host)))
+	client, err := elastic.NewClient(elastic.SetSniff(false), elastic.SetURL(fmt.Sprintf("https://%s:443", Config.Host)))
 	if err != nil {
 		return nil, err
 	}
