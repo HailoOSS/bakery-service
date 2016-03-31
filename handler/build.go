@@ -120,7 +120,7 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 		"aws_session_token":     creds.SessionToken,
 	})
 
-	log.Printf("vars: %#v", map[string]string{
+	log.Infof("vars: %#v", map[string]string{
 		"cwd":                   dir,
 		"aws_access_key_id":     creds.AccessKeyID,
 		"aws_secret_access_key": creds.SecretAccessKey,
