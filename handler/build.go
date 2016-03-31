@@ -124,7 +124,7 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 		"cwd":                   dir,
 		"aws_access_key_id":     creds.AccessKeyID,
 		"aws_secret_access_key": creds.SecretAccessKey,
-		"aws_session_token":     creds.SessionToken,
+		"aws_access_token":      creds.SessionToken,
 	})
 
 	os.Chdir(dir)
