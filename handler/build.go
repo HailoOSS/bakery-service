@@ -127,6 +127,8 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 		"aws_session_token":     creds.SessionToken,
 	})
 
+	os.Chdir(dir)
+
 	go p.Build(vars)
 
 	return &protoBuild.Response{
