@@ -114,6 +114,7 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 	}
 
 	vars := packer.ExtractVariables(p.Template.Variables, map[string]string{
+		"cwd":                   dir,
 		"aws_access_key_id":     creds.AccessKeyID,
 		"aws_secret_access_key": creds.SecretAccessKey,
 		"aws_session_token":     creds.SessionToken,
