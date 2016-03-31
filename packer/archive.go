@@ -2,11 +2,17 @@ package packer
 
 import (
 	"archive/zip"
+	"bytes"
 	"io"
+	"os"
 )
 
 func UnzipReader(r io.Reader, dst string) error {
-	zipR, err := zip.NewReader(rc, len(r))
+	var buf bytes.Buffer
+
+	buf.ReadFrom(r)
+
+	zipR, err := zip.NewReader(buf, buf.Len())
 	if err != nil {
 		return err
 	}
