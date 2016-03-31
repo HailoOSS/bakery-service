@@ -56,7 +56,10 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 		return nil, errors.InternalServerError(BuildEndpoint, err)
 	}
 
-	if err := getter.Get(dir, fmt.Sprintf("s3://%s/%s/%s.zip", BucketName, BucketTemplatePath, template)); err != nil {
+	s3target := fmt.Sprintf("s3://%s/%s/%s.zip", BucketName, BucketTemplatePath, template)
+	log.Infof("s3: %s", s3target)
+
+	if err := getter.GetFile(dir, s3target); err != nil {
 		return nil, errors.InternalServerError(BuildEndpoint, err)
 	}
 
