@@ -56,14 +56,23 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 		return nil, errors.InternalServerError(BuildEndpoint, err)
 	}
 
-	s3target := fmt.Sprintf("%s.s3.amazonaws.com/%s/%s.zip", BucketName, BucketTemplatePath, template)
-	log.Infof("s3: %s", s3target)
+	rc, err := aws.GetS3Object(BucketName, fmt.Sprintf("%s/%s.zip", BucketTemplatePath, template))
+	if err != nil {
+		return nil, errors.BadRequest(BuildEndpoint,
+			fmt.Sprintf("Unable to get object: %v", err),
+		)
+	}
 
-	if err := getter.GetFile(dir, s3target); err != nil {
+	defer rc.Close()
+
+	if err := packer.UnzipReader(rc, dir); err != nil {
 		return nil, errors.InternalServerError(BuildEndpoint, err)
 	}
 
-	rc, err := os.Open(filepath.Join(dir, fmt.Sprintf("%s.json", template)))
+	f, err := os.Open(filepath.Join(dir, fmt.Sprintf("%s.json", template)))
+	if err != nil {
+		return nil, errors.InternalServerError(BuildEndpoint, err)
+	}
 
 	id, err := uuid.NewV4()
 	if err != nil {
@@ -84,7 +93,7 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 		ui.AddCaller("elastic", ui.NewElasticCaller(id.String(), e)),
 	)
 
-	p, err = packer.New(rc, ui)
+	p, err = packer.New(f, ui)
 	if err != nil {
 		return nil, errors.InternalServerError(BuildEndpoint,
 			fmt.Sprintf("Can't build resource: %v", err),
@@ -106,7 +115,6 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 	}
 
 	vars := packer.ExtractVariables(p.Template.Variables, map[string]string{
-		"cwd":                   dir,
 		"aws_access_key_id":     creds.AccessKeyID,
 		"aws_secret_access_key": creds.SecretAccessKey,
 		"aws_session_token":     creds.SessionToken,
