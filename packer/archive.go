@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"io"
 	"os"
+	"path/filepath"
 )
 
 func UnzipReader(r io.Reader, dst string) error {
@@ -23,7 +24,7 @@ func UnzipReader(r io.Reader, dst string) error {
 			return err
 		}
 
-		dstF, err := os.Create(f.Name)
+		dstF, err := os.Create(filepath.Join(dst, f.Name))
 		if err != nil {
 			srcF.Close()
 			return err
