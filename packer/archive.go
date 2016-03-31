@@ -9,7 +9,7 @@ import (
 )
 
 func UnzipReader(r io.Reader, dst string) error {
-	var buf bytes.Buffer
+	buf := new(bytes.Buffer)
 
 	buf.ReadFrom(r)
 
