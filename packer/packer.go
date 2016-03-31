@@ -174,7 +174,7 @@ func (p *Packer) ListTemplateVariables() map[string]*Variable {
 func (p *Packer) extractVariables(vars map[string]*Variable) map[string]string {
 	_vars := map[string]string{}
 	for n, v := range vars {
-		_vars[n] = v.Value
+		_vars[n] = v.Default
 	}
 
 	log.Infof("Extracted vars: %#v", _vars)
