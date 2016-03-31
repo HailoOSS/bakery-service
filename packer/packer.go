@@ -49,6 +49,8 @@ func (p *Packer) Build(variables map[string]*Variable) (map[string][]packer.Arti
 		return nil, fmt.Errorf("Unable to discover packer config: %v", err)
 	}
 
+	log.Infof("vars build: %#v", variables)
+
 	p.coreConfig = p.BuildCoreConfig(config, variables)
 
 	core, err := packer.NewCore(p.coreConfig)
