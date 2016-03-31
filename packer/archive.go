@@ -2,18 +2,23 @@ package packer
 
 import (
 	"archive/zip"
-	"bytes"
 	"io"
 	"os"
 	"path/filepath"
 )
 
 func UnzipReader(r io.Reader, dst string) error {
-	buf := new(bytes.Buffer)
+	archive := filepath.Join(dst, "archive.zip")
+	arcF, err := os.Create(archive)
+	if err != nil {
+		return err
+	}
 
-	buf.ReadFrom(r)
+	if _, err := io.Copy(arcF, r); err != nil {
+		return err
+	}
 
-	zipR, err := zip.NewReader(buf, buf.Len())
+	zipR, err := zip.OpenReader(archive)
 	if err != nil {
 		return err
 	}
