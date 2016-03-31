@@ -17,7 +17,6 @@ import (
 
 	log "github.com/cihub/seelog"
 	"github.com/hailocab/protobuf/proto"
-	"github.com/hashicorp/go-getter"
 	"github.com/nu7hatch/gouuid"
 )
 
