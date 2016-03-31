@@ -2,6 +2,8 @@ package handler
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
 
 	protoBuild "github.com/hailocab/bakery-service/proto/build"
 
@@ -15,6 +17,7 @@ import (
 
 	log "github.com/cihub/seelog"
 	"github.com/hailocab/protobuf/proto"
+	"github.com/hashicorp/go-getter"
 	"github.com/nu7hatch/gouuid"
 )
 
@@ -48,12 +51,16 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 	template := request.GetTemplate()
 	log.Infof("Requested Template: %v", template)
 
-	rc, err := aws.GetS3Object(BucketName, fmt.Sprintf("%s/%s.json", BucketTemplatePath, template))
+	dir, err := packer.TemporaryDir()
 	if err != nil {
-		return nil, errors.BadRequest(BuildEndpoint,
-			fmt.Sprintf("Unable to get object: %v", err),
-		)
+		return nil, errors.InternalServerError(BuildEndpoint, err)
 	}
+
+	if err := getter.Get(fmt.Sprintf("s3://%s/%s/%s.json", BucketName, BucketTemplatePath, template), dir); err != nil {
+		return nil, errors.InternalServerError(BuildEndpoint, err)
+	}
+
+	rc, err := os.Open(filepath.Join(dir, fmt.Sprintf("%s.json", template)))
 
 	id, err := uuid.NewV4()
 	if err != nil {
@@ -96,6 +103,7 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 	}
 
 	vars := packer.ExtractVariables(p.Template.Variables, map[string]string{
+		"cwd":                   dir,
 		"aws_access_key_id":     creds.AccessKeyID,
 		"aws_secret_access_key": creds.SecretAccessKey,
 		"aws_session_token":     creds.SessionToken,
