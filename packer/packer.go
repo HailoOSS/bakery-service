@@ -210,6 +210,7 @@ func ExtractVariables(vars map[string]*template.Variable, values map[string]stri
 
 			if name == k {
 				_vars[k].Value = value
+				_vars[k].Default = value
 			}
 		}
 	}
