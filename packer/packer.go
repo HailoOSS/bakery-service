@@ -177,6 +177,8 @@ func (p *Packer) extractVariables(vars map[string]*Variable) map[string]string {
 		_vars[n] = v.Value
 	}
 
+	log.Infof("Extracted vars: %#v", _vars)
+
 	return _vars
 }
 
