@@ -115,6 +115,8 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 
 	os.Setenv("AWS_SESSION_TOKEN", creds.SessionToken)
 
+	log.Infof("ENV: %#v", os.Environ())
+
 	vars := packer.ExtractVariables(p.Template.Variables, map[string]string{
 		"cwd":                   dir,
 		"aws_access_key_id":     creds.AccessKeyID,
