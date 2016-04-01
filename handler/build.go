@@ -99,29 +99,15 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 		)
 	}
 
-	config, err := aws.Auth(aws.DefaultAccount)
+	creds, err := aws.LoadEncryptedAccountInfo()
 	if err != nil {
-		return nil, errors.InternalServerError(BuildEndpoint,
-			fmt.Sprintf("Unable to get AWS configuration"),
-		)
+		return nil, errors.InternalServerError(BuildEndpoint, err)
 	}
-
-	creds, err := config.Credentials.Get()
-	if err != nil {
-		return nil, errors.InternalServerError(BuildEndpoint,
-			fmt.Sprintf("Unable to get AWS credentials"),
-		)
-	}
-
-	os.Setenv("AWS_SESSION_TOKEN", creds.SessionToken)
-
-	log.Infof("ENV: %#v", os.Environ())
 
 	vars := packer.ExtractVariables(p.Template.Variables, map[string]string{
 		"cwd":                   dir,
-		"aws_access_key_id":     creds.AccessKeyID,
-		"aws_secret_access_key": creds.SecretAccessKey,
-		"aws_session_token":     creds.SessionToken,
+		"aws_access_key_id":     creds["aws_access_key_id"],
+		"aws_secret_access_key": creds["aws_secret_access_key"],
 	})
 
 	go p.Build(vars)

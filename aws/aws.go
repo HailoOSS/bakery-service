@@ -127,6 +127,24 @@ func loadAccountInfo() ([]Account, error) {
 	return accs, nil
 }
 
+func LoadEncryptedAccountInfo() (map[string]string, error) {
+	credentials, err := config.AtPath(
+		"hailo",
+		"service",
+		"bakery",
+		"credentials",
+	).Decrypt()
+
+	if err != nil {
+		return map[string]string{}, err
+	}
+
+	return map[string]string{
+		"aws_access_key_id":     credentials.AtPath("aws_access_key_id"),
+		"aws_secret_access_key": credentials.AtPath("aws_secret_access_key"),
+	}, nil
+}
+
 func randString() string {
 	alphanum := "0123456789abcdefghigklmnopqrst"
 
