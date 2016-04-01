@@ -10,8 +10,8 @@ import (
 	"github.com/hailocab/bakery-service/handler"
 
 	log "github.com/cihub/seelog"
-	service "github.com/hailocab/platform-layer/server"
-	"github.com/hailocab/service-layer/config"
+	service "github.com/hailocab/go-platform-layer/server"
+	"github.com/hailocab/go-service-layer/config"
 )
 
 func main() {

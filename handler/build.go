@@ -12,8 +12,8 @@ import (
 	"github.com/hailocab/bakery-service/packer"
 	"github.com/hailocab/bakery-service/packer/ui"
 
-	"github.com/hailocab/platform-layer/errors"
-	"github.com/hailocab/platform-layer/server"
+	"github.com/hailocab/go-platform-layer/errors"
+	"github.com/hailocab/go-platform-layer/server"
 
 	log "github.com/cihub/seelog"
 	"github.com/hailocab/protobuf/proto"

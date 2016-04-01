@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/hailocab/service-layer/config"
+	"github.com/hailocab/go-service-layer/config"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"

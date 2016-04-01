@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/hailocab/service-layer/config"
+	"github.com/hailocab/go-service-layer/config"
 
 	log "github.com/cihub/seelog"
 	"github.com/nu7hatch/gouuid"
