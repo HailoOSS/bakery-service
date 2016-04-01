@@ -139,9 +139,11 @@ func LoadEncryptedAccountInfo() (map[string]string, error) {
 		return map[string]string{}, err
 	}
 
+	dev := credentials.AtPath("dev").AsStringMap()
+
 	return map[string]string{
-		"aws_access_key_id":     credentials.AtPath("aws_access_key_id").AsString(""),
-		"aws_secret_access_key": credentials.AtPath("aws_secret_access_key").AsString(""),
+		"aws_access_key_id":     dev["aws_access_key_id"],
+		"aws_secret_access_key": dev["aws_secret_access_key"],
 	}, nil
 }
 
