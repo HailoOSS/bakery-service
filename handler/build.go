@@ -113,21 +113,14 @@ func Build(req *server.Request) (proto.Message, errors.Error) {
 		)
 	}
 
+	os.Setenv("AWS_SESSION_TOKEN", creds.SessionToken)
+
 	vars := packer.ExtractVariables(p.Template.Variables, map[string]string{
 		"cwd":                   dir,
 		"aws_access_key_id":     creds.AccessKeyID,
 		"aws_secret_access_key": creds.SecretAccessKey,
 		"aws_session_token":     creds.SessionToken,
 	})
-
-	log.Infof("vars: %#v", map[string]string{
-		"cwd":                   dir,
-		"aws_access_key_id":     creds.AccessKeyID,
-		"aws_secret_access_key": creds.SecretAccessKey,
-		"aws_access_token":      creds.SessionToken,
-	})
-
-	os.Chdir(dir)
 
 	go p.Build(vars)
 
